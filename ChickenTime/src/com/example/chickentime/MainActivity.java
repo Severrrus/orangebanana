@@ -18,8 +18,21 @@ public class MainActivity extends Activity
     super.onCreate(savedInstanceState);
     main = this;
     setContentView(R.layout.activity_main);
+    onResume();
   }
 
+  @Override
+  public void onResume(){
+    super.onResume();
+    
+    SharedPreferences sharedPref= this.getSharedPreferences("com.example.chickentime", Context.MODE_PRIVATE);
+    if (sharedPref.contains("chickenIsAlive")){
+      if(!sharedPref.getBoolean("chickenIsAlive", true)){
+        
+      }
+    }
+  }
+  
   @Override
   public void onPause()
   {
