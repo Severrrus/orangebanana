@@ -4,5 +4,6 @@
     <string name="app_name">ChickenTime</string>
     <string name="hello_world">Hello world!</string>
     <string name="ChickenKilled">Your chicken have been killed!!</string>
+    <string name="title_activity_kill_chicken">KillChickenActivity</string>
 
 </resources>
