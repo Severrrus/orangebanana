@@ -22,10 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".KillChickenActivity"
-            android:label="@string/title_activity_kill_chicken" >
-        </activity>
     </application>
 
 </manifest>
