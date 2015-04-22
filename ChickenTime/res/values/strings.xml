@@ -3,5 +3,6 @@
 
     <string name="app_name">ChickenTime</string>
     <string name="hello_world">Hello world!</string>
+    <string name="ChickenKilled">Your chicken have been killed!!</string>
 
 </resources>
