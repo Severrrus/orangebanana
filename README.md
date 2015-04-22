@@ -1,2 +1,0 @@
-# orangebanana
-SlowHackaton2015
