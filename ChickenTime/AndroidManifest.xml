@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".ListViewChickens"
+            android:name=".MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,6 +25,10 @@
         <activity
             android:name=".KillChickenActivity"
             android:label="@string/title_activity_kill_chicken" >
+        </activity>
+        <activity
+            android:name=".ListViewChickens"
+            android:label="@string/title_list_view_chickens" >
         </activity>
     </application>
 
