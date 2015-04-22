@@ -2,17 +2,119 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="12dp" >
     
-
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+    
+		<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="48dp"
+		    android:orientation="horizontal">
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Saved Chickens"/>
+		    
+		    <TextView
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"/>
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="36"/>
+		    
+		</LinearLayout>
+	    
+		
+		<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="48dp"
+		    android:orientation="horizontal">
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Killed Chickens"/>
+		    
+		    <TextView
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"/>
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="84"/>
+		    
+		</LinearLayout>
+		
+		
+		<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="48dp"
+		    android:orientation="horizontal">
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Total Chickens"/>
+		    
+		    <TextView
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"/>
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="120"/>
+		    
+		</LinearLayout>
+	
+		
+		
+		<LinearLayout 
+		    android:layout_width="match_parent"
+		    android:layout_height="48dp"
+		    android:orientation="horizontal">
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="Strongest Chicken"/>
+		    
+		    <TextView
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"/>
+		    
+		    <TextView 
+		        android:layout_width="wrap_content"
+		        android:layout_height="wrap_content"
+		        android:text="2:10"/>
+		    
+		</LinearLayout>
+		
+			
+    </LinearLayout>
+    
+    
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp">
+        android:layout_height="48dp"
+        android:orientation="horizontal">
        
     <TextView
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="3"/>
+        android:layout_weight="2"/>
         
     <TextView 
         android:layout_width="wrap_content"
@@ -38,6 +140,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Remaining Time"/>
+        
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <ListView 
+            android:id="@+id/listViewChickens"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            ></ListView>
         
     </LinearLayout>
     
