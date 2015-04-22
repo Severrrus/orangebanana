@@ -5,14 +5,33 @@
     tools:context="${relativePackage}.${activityClass}" >
 
     <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button1"
+        android:layout_alignLeft="@+id/button1"
+        android:text="Restart Chicken"
+        android:onClick="restartChicken"
+        android:visibility="invisible"
+         />
+
+    <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="100dp"
-        android:layout_marginTop="140dp"
-        android:onClick="kill"
-        android:text="Button" />
-    
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="38dp"
+        android:onClick="spawnChicken"
+        android:text="Spawn Chicken" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button2"
+        android:layout_toRightOf="@+id/button1"
+        android:text="Farm"
+        android:onClick="farm" />
+
 </RelativeLayout>
