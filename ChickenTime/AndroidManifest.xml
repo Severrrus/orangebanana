@@ -30,7 +30,10 @@
             android:name=".ListViewChickens"
             android:label="@string/title_list_view_chickens" >
         </activity>
-
+        <activity
+            android:name=".ChickenView"
+            android:label="@string/title_activity_chicken_view" >
+        </activity>
     </application>
 
 </manifest>
