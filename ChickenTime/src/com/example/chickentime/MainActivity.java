@@ -43,31 +43,31 @@ public class MainActivity extends Activity
   public void onResume()
   {
     super.onResume();
-
-    SharedPreferences sharedPref = this.getSharedPreferences("com.example.chickentime", Context.MODE_PRIVATE);
-    if (!sharedPref.getBoolean("chickenIsAlive", true) && !ScreenReceiver.toBeOff)
-    {
-      sharedPref.edit().putBoolean("chickenIsAlive", true).apply();
-      restartChicken(null);
-      Intent intent = new Intent(this, KillChickenActivity.class);
-      startActivity(intent);
-    }
-    if (ScreenReceiver.toBeOff == true)
-    {
-      switch (chicken.prev)
-      {
-        case DEAD:
-          chicken.status = ChickenStatus.DEAD;
-          break;
-        case DOSTHG:
-          chicken.status = ChickenStatus.DOSTHG;
-          break;
-        case START:
-          chicken.status = ChickenStatus.START;
-          break;
-      }
-      ScreenReceiver.toBeOff = false;
-    }
+//
+//    SharedPreferences sharedPref = this.getSharedPreferences("com.example.chickentime", Context.MODE_PRIVATE);
+//    if (!sharedPref.getBoolean("chickenIsAlive", true) && !ScreenReceiver.toBeOff)
+//    {
+//      sharedPref.edit().putBoolean("chickenIsAlive", true).apply();
+//      restartChicken(null);
+//      Intent intent = new Intent(this, KillChickenActivity.class);
+//      startActivity(intent);
+//    }
+//    if (ScreenReceiver.toBeOff == true)
+//    {
+//      switch (chicken.prev)
+//      {
+//        case DEAD:
+//          chicken.status = ChickenStatus.DEAD;
+//          break;
+//        case DOSTHG:
+//          chicken.status = ChickenStatus.DOSTHG;
+//          break;
+//        case START:
+//          chicken.status = ChickenStatus.START;
+//          break;
+//      }
+//      ScreenReceiver.toBeOff = false;
+//    }
   }
 
   @Override
