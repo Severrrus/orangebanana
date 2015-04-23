@@ -1,21 +1,28 @@
 package com.example.chickentime;
 
-import com.example.chickentime.Chicken.ChickenStatus;
-
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
+import com.example.chickentime.Chicken.ChickenStatus;
 
 public class MainActivity extends Activity
 {
   static MainActivity main;
-  Chicken chicken;
-  
+  Chicken             chicken;
+
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
@@ -23,71 +30,112 @@ public class MainActivity extends Activity
     main = this;
     chicken = new Chicken();
     setContentView(R.layout.activity_main);
+
+    IntentFilter filter = new IntentFilter(Intent.ACTION_SCREEN_ON);
+    filter.addAction(Intent.ACTION_SCREEN_OFF);
+    BroadcastReceiver mReceiver = new ScreenReceiver();
+    registerReceiver(mReceiver, filter);
+
     onResume();
   }
 
   @Override
-  public void onResume(){
+  public void onResume()
+  {
     super.onResume();
-    
-    SharedPreferences sharedPref= this.getSharedPreferences("com.example.chickentime", Context.MODE_PRIVATE);
-    if (sharedPref.contains("chickenIsAlive")){
-      if(!sharedPref.getBoolean("chickenIsAlive", true)){
-        sharedPref.edit().putBoolean("chickenIsAlive", true).apply();
-        Intent intent = new Intent(this, KillChickenActivity.class);
-        //startActivity(intent);
+
+    SharedPreferences sharedPref = this.getSharedPreferences("com.example.chickentime", Context.MODE_PRIVATE);
+    if (!sharedPref.getBoolean("chickenIsAlive", true) && !ScreenReceiver.toBeOff)
+    {
+      sharedPref.edit().putBoolean("chickenIsAlive", true).apply();
+      restartChicken(null);
+      Intent intent = new Intent(this, KillChickenActivity.class);
+      startActivity(intent);
+    }
+    if (ScreenReceiver.toBeOff == true)
+    {
+      switch (chicken.prev)
+      {
+        case DEAD:
+          chicken.status = ChickenStatus.DEAD;
+          break;
+        case DOSTHG:
+          chicken.status = ChickenStatus.DOSTHG;
+          break;
+        case START:
+          chicken.status = ChickenStatus.START;
+          break;
       }
+      ScreenReceiver.toBeOff = false;
     }
   }
-  
+
   @Override
   public void onPause()
   {
-    super.onPause(); // Always call the superclass method first
-    if (isChickenAlive())
+    super.onPause();
+    if (chicken.status == ChickenStatus.DOSTHG)
       kill();
-    
-    SharedPreferences sharedPref= this.getSharedPreferences("com.example.chickentime", Context.MODE_PRIVATE);
-    sharedPref.edit().putBoolean("chickenIsAlive", isChickenAlive()).apply();
-  
+
+    ScreenReceiver.toBeOff = false;
+    SharedPreferences sharedPref = this.getSharedPreferences("com.example.chickentime", Context.MODE_PRIVATE);
+    Boolean b = true;
+    if (chicken.status == ChickenStatus.DEAD)
+      b = false;
+    sharedPref.edit().putBoolean("chickenIsAlive", b).apply();
+
   }
-  
-  public void farm(){
+
+  public void farm(View view)
+  {
     Intent intent = new Intent(this, ListViewChickens.class);
     startActivity(intent);
   }
 
   public void kill()
   {
+    switch (chicken.status)
+    {
+      case DEAD:
+        chicken.prev = ChickenStatus.DEAD;
+        break;
+      case DOSTHG:
+        chicken.prev = ChickenStatus.DOSTHG;
+        break;
+      case START:
+        chicken.prev = ChickenStatus.START;
+        break;
+    }
+
+    chicken.status = ChickenStatus.DEAD;
     new Handler().postDelayed(new Runnable()
     {
 
       @Override
       public void run()
       {
-        Toast aToast = Toast.makeText(MainActivity.main,getString(R.string.ChickenKilled) , Toast.LENGTH_SHORT);
-        aToast.show();
+        if (ScreenReceiver.toBeOff == false)
+        {
+          Toast aToast = Toast.makeText(MainActivity.main, getString(R.string.ChickenKilled), Toast.LENGTH_SHORT);
+          aToast.show();
+        }
       }
-    }, 2000);
+    }, 1000);
 
   }
 
-  public void spawnChicken(View view){
+  public void spawnChicken(View view)
+  {
     chicken.status = Chicken.ChickenStatus.DOSTHG;
     findViewById(R.id.button1).setVisibility(View.INVISIBLE);
     findViewById(R.id.button2).setVisibility(View.VISIBLE);
   }
-  
-  public void restartChicken(View view){
+
+  public void restartChicken(View view)
+  {
     chicken.status = Chicken.ChickenStatus.START;
     findViewById(R.id.button2).setVisibility(View.INVISIBLE);
     findViewById(R.id.button1).setVisibility(View.VISIBLE);
   }
-  
-  private boolean isChickenAlive()
-  {
-    if (chicken.status == ChickenStatus.START)
-      return false;
-    return true;
-  }
+
 }
