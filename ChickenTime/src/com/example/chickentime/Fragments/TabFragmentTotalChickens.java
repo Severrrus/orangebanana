@@ -20,12 +20,30 @@ public class TabFragmentTotalChickens extends Fragment {
                 R.layout.tab_total_chickens, container, false);
 
         Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/HelveticaNeue.dfont");
-        TextView textViewTotal = (TextView) rootView.findViewById(R.id.total);
-        TextView textViewChickens = (TextView) rootView.findViewById(R.id.chickens);
-        TextView textViewTotalAmount = (TextView) rootView.findViewById(R.id.totalAmount);
-        textViewTotal.setTypeface(myTypeface);
-        textViewChickens.setTypeface(myTypeface);
-        textViewTotalAmount.setTypeface(myTypeface);
+        TextView textViewSurvivedChickensAmount = (TextView) rootView.findViewById(R.id.totalSurvivedChickensAmount);
+        TextView textViewPercentageSavedToKill = (TextView) rootView.findViewById(R.id.percentageSavedToKill);
+        TextView textViewKilledChickensAmount = (TextView) rootView.findViewById(R.id.totalKilledChickensAmount);
+        TextView textViewTimeSavedThisWeek = (TextView) rootView.findViewById(R.id.timeSavedThisWeekAmount);
+        TextView textViewTimeSavedTotalAmount = (TextView) rootView.findViewById(R.id.timeSavedTotalAmount);
+        TextView textViewChickenSurvivabilityTag = (TextView) rootView.findViewById(R.id.chickenSurvivabilityTag);
+        TextView textViewSurvivedTag = (TextView) rootView.findViewById(R.id.survivedTag);
+        TextView textViewKilledTag = (TextView) rootView.findViewById(R.id.killedTag);
+        TextView textViewSavedTimeTag = (TextView) rootView.findViewById(R.id.savedTimeTag);
+        TextView textViewThisWeekTag = (TextView) rootView.findViewById(R.id.thisWeekTag);
+        TextView textViewTotalTag = (TextView) rootView.findViewById(R.id.totalTag);
+
+
+        textViewSurvivedChickensAmount.setTypeface(myTypeface);
+        textViewPercentageSavedToKill.setTypeface(myTypeface);
+        textViewKilledChickensAmount.setTypeface(myTypeface);
+        textViewTimeSavedThisWeek.setTypeface(myTypeface);
+        textViewTimeSavedTotalAmount.setTypeface(myTypeface);
+        textViewChickenSurvivabilityTag.setTypeface(myTypeface);
+        textViewSurvivedTag.setTypeface(myTypeface);
+        textViewKilledTag.setTypeface(myTypeface);
+        textViewSavedTimeTag.setTypeface(myTypeface);
+        textViewThisWeekTag.setTypeface(myTypeface);
+        textViewTotalTag.setTypeface(myTypeface);
         
         return rootView;
     }

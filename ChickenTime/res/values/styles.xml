@@ -25,4 +25,10 @@
         <item name="android:textSize">56dp</item>
     </style>
     
+    <style name="whiteText">
+        <item name="android:textSize">24dp</item>
+        <item name="android:textColor">#FFFFFF</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+    
 </resources>
