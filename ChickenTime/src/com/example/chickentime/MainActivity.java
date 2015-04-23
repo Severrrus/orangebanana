@@ -1,8 +1,6 @@
 package com.example.chickentime;
 
 import android.app.Activity;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -10,8 +8,6 @@ import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -110,7 +106,7 @@ public class MainActivity extends Activity
         chicken.prev = ChickenStatus.START;
         break;
     }
-
+    
     chicken.status = ChickenStatus.DEAD;
     new Handler().postDelayed(new Runnable()
     {
@@ -143,6 +139,7 @@ public class MainActivity extends Activity
 
   public void spawnChicken(View view)
   {
+    Log.e("CO","O");
     chicken.status = Chicken.ChickenStatus.DOSTHG;
 //    findViewById(R.id.button1).setVisibility(View.INVISIBLE);
 //    findViewById(R.id.button2).setVisibility(View.VISIBLE);
