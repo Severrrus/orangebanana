@@ -7,5 +7,6 @@
     <string name="title_activity_kill_chicken">KillChickenActivity</string>
     <string name="title_list_view_chickens">Farm</string>
     <string name="title_activity_chicken_view">ChickenView</string>
-
+    <string name="title_activity_tab">ChickenTaba</string>
+    
 </resources>
