@@ -5,5 +5,13 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="lib" path="/opt/eclipse/sdk/platforms/android-20/android.jar" sourcepath="/opt/eclipse/sdk/sources/android-20">
+		<attributes>
+			<attribute name="javadoc_location" value="file:/opt/eclipse/sdk/docs/reference"/>
+		</attributes>
+		<accessrules>
+			<accessrule kind="nonaccessible" pattern="com/android/internal/**"/>
+		</accessrules>
+	</classpathentry>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

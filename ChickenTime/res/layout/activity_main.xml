@@ -1,37 +1,61 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="${relativePackage}.${activityClass}" >
+    xmlns:ProgressWheel="http://schemas.android.com/apk/res-auto"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFF"
+    android:orientation="vertical" >
 
-    <Button
-        android:id="@+id/button2"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button1"
-        android:layout_alignLeft="@+id/button1"
-        android:text="Restart Chicken"
-        android:onClick="restartChicken"
-        android:visibility="invisible"
-         />
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
+        android:orientation="horizontal" >
+
+        <com.example.chickentime.ProgressWheel
+            android:id="@+id/progressBarTwo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ProgressWheel:barColor="#80FFFFFF"
+            ProgressWheel:rimColor="#80FF0000"
+            ProgressWheel:contourColor="#80FFFFFF"
+            ProgressWheel:barLength="60dp"
+            ProgressWheel:barWidth="25dp"
+            ProgressWheel:rimWidth="25dp"
+            ProgressWheel:spinSpeed="3dp"
+            ProgressWheel:textColor="#222222"
+            ProgressWheel:textSize="14sp" />
+    </LinearLayout>
 
     <Button
         android:id="@+id/button1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="38dp"
-        android:onClick="spawnChicken"
-        android:text="Spawn Chicken" />
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/linearLayout1"
+        android:layout_marginTop="26dp"
+        android:onClick="increment"
+        android:text="Button" />
 
     <Button
         android:id="@+id/button3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/button2"
-        android:layout_toRightOf="@+id/button1"
-        android:text="Farm"
-        android:onClick="farm" />
+        android:layout_alignBaseline="@+id/button2"
+        android:layout_alignBottom="@+id/button2"
+        android:layout_alignRight="@+id/linearLayout1"
+        android:onClick="farm"
+        android:text="Farm" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button1"
+        android:layout_alignBottom="@+id/button1"
+        android:layout_centerHorizontal="true"
+        android:text="spawnChicken" />
 
 </RelativeLayout>
