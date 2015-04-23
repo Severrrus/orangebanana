@@ -121,7 +121,7 @@ public class MainActivity extends Activity
         	                               (ViewGroup) findViewById(R.id.toast_layout_root));
 
         	TextView text = (TextView) layout.findViewById(R.id.text);
-        	text.setText("Your chicken died miserable death!!");
+        	text.setText("Your chicken has died a miserable death!!");
 
         	Toast toast = new Toast(getApplicationContext());
         	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
