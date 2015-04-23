@@ -172,6 +172,7 @@ public class MainActivity extends Activity {
 					timerHandler.postDelayed(this, 1000);
 				else {
 					// Co zrobiæ jak siê skoñczy czas?
+					chicken.status = ChickenStatus.START;
 				}
 			}
 		};
