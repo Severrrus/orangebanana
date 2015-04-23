@@ -40,9 +40,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="194dp"
                 android:layout_marginTop="50dp"
+                android:contentDescription="Chicken"
                 android:maxWidth="10dp"
-                android:src="@drawable/kurczak"
-                android:contentDescription="Chicken" />
+                android:onClick="spawnChicken"
+                android:src="@drawable/kurczak" />
 
         </FrameLayout>
 
