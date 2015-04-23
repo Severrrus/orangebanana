@@ -56,12 +56,12 @@ public class ListViewChickensAdapter extends BaseAdapter {
         TextView textViewRemainingTime = (TextView) vi.findViewById(R.id.itemChickenRemainingTime);
         LinearLayout linearLayoutChicken = (LinearLayout) vi.findViewById(R.id.linearLayoutChicken);
         
-        if(this.data[position].isSurvived()){
+        /*if(this.data[position].isSurvived()){
         	linearLayoutChicken.setBackgroundColor(Color.GREEN);
         }else{
         	linearLayoutChicken.setBackgroundColor(Color.RED);
         }
-        
+        */
         textViewStart.setText(this.data[position].getStart());
         textViewElapsedTime.setText(this.data[position].getElapsedTime());
         textViewRemainingTime.setText(this.data[position].getRemainingTime());

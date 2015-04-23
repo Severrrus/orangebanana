@@ -34,6 +34,10 @@
             android:name=".ChickenView"
             android:label="@string/title_activity_chicken_view" >
         </activity>
+         <activity
+            android:name=".TabActivity"
+            android:label="@string/title_activity_tab" >
+        </activity>
     </application>
 
 </manifest>
