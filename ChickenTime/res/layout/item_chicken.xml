@@ -12,6 +12,7 @@
         android:layout_weight="2"/>
         
     <TextView 
+        style="@style/mediumText"
         android:id="@+id/itemChickenStart"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -22,6 +23,7 @@
         android:layout_weight="1"/>
     
     <TextView 
+        style="@style/mediumText"
         android:id="@+id/itemChickenElapsedTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
@@ -32,6 +34,7 @@
         android:layout_weight="1"/>
     
     <TextView 
+        style="@style/mediumText"
         android:id="@+id/itemChickenRemainingTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>

@@ -23,6 +23,7 @@
 		    android:orientation="horizontal">
 		    
 		    <TextView 
+		        style="@style/mediumText"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Saved Chickens"/>
@@ -33,6 +34,7 @@
 		        android:layout_weight="1"/>
 		    
 		    <TextView 
+		        style="@style/mediumText"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="36"/>
@@ -47,6 +49,7 @@
 		    android:orientation="horizontal">
 		    
 		    <TextView 
+		        style="@style/mediumText"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Killed Chickens"/>
@@ -57,6 +60,7 @@
 		        android:layout_weight="1"/>
 		    
 		    <TextView 
+		        style="@style/mediumText"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="84"/>
@@ -71,6 +75,7 @@
 		    android:orientation="horizontal">
 		    
 		    <TextView 
+		        style="@style/mediumText"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Total Chickens"/>
@@ -81,6 +86,7 @@
 		        android:layout_weight="1"/>
 		    
 		    <TextView 
+		        style="@style/mediumText"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="120"/>
@@ -96,6 +102,7 @@
 		    android:orientation="horizontal">
 		    
 		    <TextView 
+		        style="@style/mediumText"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="Strongest Chicken"/>
@@ -106,6 +113,7 @@
 		        android:layout_weight="1"/>
 		    
 		    <TextView 
+		        style="@style/mediumText"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:text="2:10"/>
@@ -129,6 +137,7 @@
         android:layout_weight="2"/>
         
     <TextView 
+        style="@style/mediumText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Start"/>
@@ -139,6 +148,7 @@
         android:layout_weight="1"/>
     
     <TextView 
+        style="@style/mediumText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Elapsed"/>
@@ -149,6 +159,7 @@
         android:layout_weight="1"/>
     
     <TextView 
+        style="@style/mediumText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Remaining"/>
