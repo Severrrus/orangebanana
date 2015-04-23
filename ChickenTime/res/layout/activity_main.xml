@@ -22,7 +22,7 @@
             ProgressWheel:barLength="60dp"
             ProgressWheel:barWidth="25dp"
             ProgressWheel:contourColor="#80FFFFFF"
-            ProgressWheel:rimColor="#80FF0000"
+            ProgressWheel:rimColor="#cd2c24"
             ProgressWheel:rimWidth="25dp"
             ProgressWheel:spinSpeed="3dp"
             ProgressWheel:textColor="#222222"
@@ -116,10 +116,10 @@
             android:id="@+id/seconds"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="top|center_vertical"
             android:text="00"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textSize="30sp" />
+
         <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
