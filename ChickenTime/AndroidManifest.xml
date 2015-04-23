@@ -28,12 +28,9 @@
         </activity>
         <activity
             android:name=".ListViewChickens"
-            android:label="list_view" >
+            android:label="@string/title_list_view_chickens" >
         </activity>
-        <activity
-            android:name=".NotificationActivity"
-            android:label="@string/title_activity_notification" >
-        </activity>
+
     </application>
 
 </manifest>
