@@ -2,12 +2,16 @@ package com.example.chickentime;
 
 import java.util.Date;
 
+import java.io.IOException;
+
 import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,6 +19,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.webkit.WebView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -128,7 +133,12 @@ public class MainActivity extends Activity
 
         	TextView text = (TextView) layout.findViewById(R.id.text);
         	text.setText("Your chicken has died a miserable death!!");
-
+        	
+        	WebView webview = (WebView) layout.findViewById(R.id.webview);
+        	webview.loadUrl("file:///android_asset/anim4.gif");
+        	webview.setBackgroundColor(Color.TRANSPARENT);
+        	
+            
         	Toast toast = new Toast(getApplicationContext());
         	toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
         	toast.setDuration(Toast.LENGTH_LONG);
