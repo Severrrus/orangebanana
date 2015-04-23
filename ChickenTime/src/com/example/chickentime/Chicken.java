@@ -7,8 +7,10 @@ public class Chicken
   }
   
   public ChickenStatus status;
+  public ChickenStatus prev;
   
   public Chicken(){
+    prev = ChickenStatus.START;
     status = ChickenStatus.START;
   }
 }

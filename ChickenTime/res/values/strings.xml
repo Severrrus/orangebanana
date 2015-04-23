@@ -5,5 +5,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="ChickenKilled">Your chicken have been killed!!</string>
     <string name="title_activity_kill_chicken">KillChickenActivity</string>
+    <string name="title_activity_notification">NotificationActivity</string>
 
 </resources>
