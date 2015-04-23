@@ -48,6 +48,10 @@ public class MainActivity extends Activity
     date.setHours(0);
     date.setMinutes(0);
     date.setSeconds(0);
+    
+    ProgressWheel pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
+    
+    pw.setProgress(270); //progess in degrees
   }
 
   @Override
