@@ -26,7 +26,9 @@ public class MainActivity extends Activity {
 	static MainActivity main;
 	Chicken chicken;
 	Date date;
-
+	int total_sec;
+	ProgressWheel pw;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -44,9 +46,9 @@ public class MainActivity extends Activity {
 		date.setMinutes(0);
 		date.setSeconds(0);
 
-		ProgressWheel pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
+		pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
 
-		pw.setProgress(270); // progess in degrees
+		pw.setProgress(360); // progess in degrees
 	}
 
 	@Override
@@ -153,12 +155,13 @@ public class MainActivity extends Activity {
 	public void spawnChicken(View view) {
 		if (chicken.status != Chicken.ChickenStatus.START)
 			return;
+		total_sec = 60 * (date.getMinutes() + date.getHours() * 60) + date.getSeconds();
 		chicken.status = Chicken.ChickenStatus.DOSTHG;
 
-		((ImageView)findViewById(R.id.incMin)).setVisibility(View.INVISIBLE);;
-		((ImageView)findViewById(R.id.incH)).setVisibility(View.INVISIBLE);;
-		((ImageView)findViewById(R.id.decH)).setVisibility(View.INVISIBLE);;
-		((ImageView)findViewById(R.id.decMin)).setVisibility(View.INVISIBLE);;
+		((ImageView)findViewById(R.id.incMin)).setVisibility(View.INVISIBLE);
+		((ImageView)findViewById(R.id.incH)).setVisibility(View.INVISIBLE);
+		((ImageView)findViewById(R.id.decH)).setVisibility(View.INVISIBLE);
+		((ImageView)findViewById(R.id.decMin)).setVisibility(View.INVISIBLE);
 		
 		
 		final Handler timerHandler = new Handler();
@@ -167,12 +170,17 @@ public class MainActivity extends Activity {
 			@Override
 			public void run() {
 				decSec();
+				pw.setProgress((int)(360f * (( 60 * (date.getMinutes() + date.getHours() * 60) + date.getSeconds())/(float)total_sec)));
 				if (date.getSeconds() != 0 || date.getMinutes() != 0
 						|| date.getSeconds() != 0)
 					timerHandler.postDelayed(this, 1000);
 				else {
 					// Co zrobiæ jak siê skoñczy czas?
 					chicken.status = ChickenStatus.START;
+					((ImageView)findViewById(R.id.incMin)).setVisibility(View.VISIBLE);
+					((ImageView)findViewById(R.id.incH)).setVisibility(View.VISIBLE);
+					((ImageView)findViewById(R.id.decH)).setVisibility(View.VISIBLE);
+					((ImageView)findViewById(R.id.decMin)).setVisibility(View.VISIBLE);
 				}
 			}
 		};
