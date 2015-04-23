@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 
 import com.example.chickentime.R;
 
+
 public class TabFragmentKilledChickens extends Fragment {
 
     @Override
