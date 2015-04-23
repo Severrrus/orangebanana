@@ -1,7 +1,6 @@
 package com.example.chickentime;
 
 import java.util.Date;
-import java.io.IOException;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -16,6 +15,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -51,49 +51,60 @@ public class MainActivity extends Activity {
 
 		pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
 
-  @Override
-  public void onResume()
-  {
-    super.onResume();
-    //
-    // SharedPreferences sharedPref = this.getSharedPreferences("com.example.chickentime", Context.MODE_PRIVATE);
-    // if (!sharedPref.getBoolean("chickenIsAlive", true) && !ScreenReceiver.toBeOff)
-    // {
-    // sharedPref.edit().putBoolean("chickenIsAlive", true).apply();
-    // restartChicken(null);
-    // Intent intent = new Intent(this, KillChickenActivity.class);
-    // startActivity(intent);
-    // }
-    // if (ScreenReceiver.toBeOff == true)
-    // {
-    // switch (chicken.prev)
-    // {
-    // case DEAD:
-    // chicken.status = ChickenStatus.DEAD;
-    // break;
-    // case DOSTHG:
-    // chicken.status = ChickenStatus.DOSTHG;
-    // break;
-    // case START:
-    // chicken.status = ChickenStatus.START;
-    // break;
-    // }
-    // ScreenReceiver.toBeOff = false;
-    // }
-  }
-  @Override
-  public boolean onCreateOptionsMenu(Menu menu) {
-      MenuInflater inflater = getMenuInflater();
-      inflater.inflate(R.layout.mainmenu, menu);
-      return true;
-  }
-  @Override
-  public void onPause()
-  {
-    super.onPause();
-    if (chicken.status == ChickenStatus.DOSTHG)
-      kill();
+		pw.setProgress(360); // progess in degrees
+	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		//
+		// SharedPreferences sharedPref =
+		// this.getSharedPreferences("com.example.chickentime",
+		// Context.MODE_PRIVATE);
+		// if (!sharedPref.getBoolean("chickenIsAlive", true) &&
+		// !ScreenReceiver.toBeOff)
+		// {
+		// sharedPref.edit().putBoolean("chickenIsAlive", true).apply();
+		// restartChicken(null);
+		// Intent intent = new Intent(this, KillChickenActivity.class);
+		// startActivity(intent);
+		// }
+		// if (ScreenReceiver.toBeOff == true)
+		// {
+		// switch (chicken.prev)
+		// {
+		// case DEAD:
+		// chicken.status = ChickenStatus.DEAD;
+		// break;
+		// case DOSTHG:
+		// chicken.status = ChickenStatus.DOSTHG;
+		// break;
+		// case START:
+		// chicken.status = ChickenStatus.START;
+		// break;
+		// }
+		// ScreenReceiver.toBeOff = false;
+		// }
+	}
+	@Override
+
+	  public boolean onCreateOptionsMenu(Menu menu) {
+	      MenuInflater inflater = getMenuInflater();
+	      inflater.inflate(R.layout.mainmenu, menu);
+	      
+	      return true;
+	  }
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    // Handle presses on the action bar items
+	    switch (item.getItemId()) {
+	        case R.id.jump_farm:
+	            farm(null);
+	            return true;
+	        default:
+	            return super.onOptionsItemSelected(item);
+	    }
+	}
 	@Override
 	public void onPause() {
 		super.onPause();
@@ -185,7 +196,7 @@ public class MainActivity extends Activity {
 						|| date.getSeconds() != 0)
 					timerHandler.postDelayed(this, 1000);
 				else {
-					// Co zrobiæ jak siê skoñczy czas?
+					// Co zrobiï¿½ jak siï¿½ skoï¿½czy czas?
 					chicken.status = ChickenStatus.START;
 					((ImageView)findViewById(R.id.incMin)).setVisibility(View.VISIBLE);
 					((ImageView)findViewById(R.id.incH)).setVisibility(View.VISIBLE);

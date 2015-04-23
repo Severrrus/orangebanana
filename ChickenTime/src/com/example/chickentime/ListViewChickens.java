@@ -6,6 +6,8 @@ import com.example.helpers.ListViewChickensAdapter;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -15,12 +17,13 @@ import android.widget.Toast;
 
 public class ListViewChickens extends Activity {
     ListView listView ;
-    
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.farm_layout);
         
+
         // Get ListView object from xml
         listView = (ListView) findViewById(R.id.listViewChickens);
         
@@ -84,7 +87,6 @@ public class ListViewChickens extends Activity {
         // Third parameter - ID of the TextView to which the data is written
         // Forth - the Array of data
 
-     
 
 
         // Assign adapter to ListView
