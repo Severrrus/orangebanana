@@ -1,7 +1,6 @@
 package com.example.chickentime;
 
 import java.util.Date;
-
 import java.io.IOException;
 
 import android.app.Activity;
@@ -17,6 +16,8 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
@@ -84,7 +85,12 @@ public class MainActivity extends Activity
     // ScreenReceiver.toBeOff = false;
     // }
   }
-
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+      MenuInflater inflater = getMenuInflater();
+      inflater.inflate(R.layout.mainmenu, menu);
+      return true;
+  }
   @Override
   public void onPause()
   {
