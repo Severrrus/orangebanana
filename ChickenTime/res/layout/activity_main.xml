@@ -14,19 +14,35 @@
         android:layout_marginTop="10dp"
         android:orientation="horizontal" >
 
-        <com.example.chickentime.ProgressWheel
-            android:id="@+id/progressBarTwo"
+        <FrameLayout
+            android:id="@+id/frameL"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            ProgressWheel:barColor="#80FFFFFF"
-            ProgressWheel:barLength="60dp"
-            ProgressWheel:barWidth="25dp"
-            ProgressWheel:contourColor="#80FFFFFF"
-            ProgressWheel:rimColor="#80FF0000"
-            ProgressWheel:rimWidth="25dp"
-            ProgressWheel:spinSpeed="3dp"
-            ProgressWheel:textColor="#222222"
-            ProgressWheel:textSize="14sp" />
+            android:layout_height="wrap_content" >
+
+            <com.example.chickentime.ProgressWheel
+                android:id="@+id/progressBarTwo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                ProgressWheel:barColor="#80FFFFFF"
+                ProgressWheel:barLength="60dp"
+                ProgressWheel:barWidth="25dp"
+                ProgressWheel:contourColor="#80FFFFFF"
+                ProgressWheel:rimColor="#80FF0000"
+                ProgressWheel:rimWidth="25dp"
+                ProgressWheel:spinSpeed="3dp"
+                ProgressWheel:textColor="#222222"
+                ProgressWheel:textSize="14sp" />
+
+            <ImageView
+                android:id="@+id/imageView1"
+                android:layout_width="558dp"
+                android:layout_height="194dp"
+                android:layout_marginLeft="-120dp"
+                android:layout_marginTop="50dp"
+                android:maxWidth="10dp"
+                android:src="@drawable/kurczak" />
+
+        </FrameLayout>
 
         <Button
             android:id="@+id/button2"
@@ -66,13 +82,13 @@
 
             <ImageView
                 android:id="@+id/incH"
-                android:padding="10dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_margin="-10dp"
-                android:src="@drawable/trojkat"
-                android:onClick="incH" />
+                android:onClick="incH"
+                android:padding="10dp"
+                android:src="@drawable/trojkat" />
 
             <TextView
                 android:layout_width="0dp"
@@ -83,11 +99,11 @@
                 android:id="@+id/incMin"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:padding="10dp"
                 android:layout_gravity="center_horizontal|bottom"
                 android:layout_margin="-10dp"
-                android:src="@drawable/trojkat"
-                android:onClick="incMin" />
+                android:onClick="incMin"
+                android:padding="10dp"
+                android:src="@drawable/trojkat" />
 
             <TextView
                 android:layout_width="0dp"
@@ -95,36 +111,40 @@
                 android:layout_weight="2" />
         </LinearLayout>
 
-<LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content" 
-    android:orientation="horizontal">
-<TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal" >
+
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="3" />
-        <TextView
-            android:id="@+id/hmin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:text="00:00"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="60sp" />
 
-        <TextView
-            android:id="@+id/seconds"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center_vertical"
-            android:text="00"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textSize="30sp" />
-        <TextView
+            <TextView
+                android:id="@+id/hmin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:text="00:00"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="60sp" />
+
+            <TextView
+                android:id="@+id/seconds"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="top|center_vertical"
+                android:text="00"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="30sp" />
+
+            <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2" />
-</LinearLayout>
+        </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -138,12 +158,12 @@
                 android:id="@+id/decH"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:padding="10dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="-10dp"
                 android:adjustViewBounds="true"
-                android:src="@drawable/trojkat2"
-                android:onClick="decH" />
+                android:onClick="decH"
+                android:padding="10dp"
+                android:src="@drawable/trojkat2" />
 
             <TextView
                 android:layout_width="0dp"
@@ -152,13 +172,13 @@
 
             <ImageView
                 android:id="@+id/decMin"
-                android:padding="10dp"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_margin="-10dp"
-                android:src="@drawable/trojkat2"
-                android:onClick="decMin" />
+                android:onClick="decMin"
+                android:padding="10dp"
+                android:src="@drawable/trojkat2" />
 
             <TextView
                 android:layout_width="0dp"
@@ -166,5 +186,19 @@
                 android:layout_weight="2" />
         </LinearLayout>
     </LinearLayout>
+
+    <Button
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:text="Farm"
+        android:background="#00FFFFFF"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="35sp" 
+        android:onClick="farm"/>
 
 </RelativeLayout>

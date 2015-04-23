@@ -158,7 +158,7 @@ public class MainActivity extends Activity
   public void incMin(View view)
   {
     TextView tv = (TextView)findViewById(R.id.hmin);
-    date.setMinutes(date.getMinutes() + 1);
+    date.setMinutes(date.getMinutes() + 5);
     StringBuffer h= new StringBuffer();
     StringBuffer m= new StringBuffer();
     if (date.getHours()< 10)
@@ -204,7 +204,7 @@ public class MainActivity extends Activity
   public void decMin(View view)
   {
     TextView tv = (TextView)findViewById(R.id.hmin);
-    date.setMinutes(date.getMinutes() - 1);
+    date.setMinutes(date.getMinutes() - 5);
     StringBuffer h= new StringBuffer();
     StringBuffer m= new StringBuffer();
     if (date.getHours()< 10)
