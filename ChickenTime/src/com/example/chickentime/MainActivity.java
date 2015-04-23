@@ -1,5 +1,7 @@
 package com.example.chickentime;
 
+import java.util.Date;
+
 import java.io.IOException;
 
 import android.app.Activity;
@@ -27,6 +29,7 @@ public class MainActivity extends Activity
 {
   static MainActivity main;
   Chicken             chicken;
+  Date                date;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
@@ -41,38 +44,41 @@ public class MainActivity extends Activity
     BroadcastReceiver mReceiver = new ScreenReceiver();
     registerReceiver(mReceiver, filter);
 
-    onResume();
+    date = new Date();
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
   }
 
   @Override
   public void onResume()
   {
     super.onResume();
-//
-//    SharedPreferences sharedPref = this.getSharedPreferences("com.example.chickentime", Context.MODE_PRIVATE);
-//    if (!sharedPref.getBoolean("chickenIsAlive", true) && !ScreenReceiver.toBeOff)
-//    {
-//      sharedPref.edit().putBoolean("chickenIsAlive", true).apply();
-//      restartChicken(null);
-//      Intent intent = new Intent(this, KillChickenActivity.class);
-//      startActivity(intent);
-//    }
-//    if (ScreenReceiver.toBeOff == true)
-//    {
-//      switch (chicken.prev)
-//      {
-//        case DEAD:
-//          chicken.status = ChickenStatus.DEAD;
-//          break;
-//        case DOSTHG:
-//          chicken.status = ChickenStatus.DOSTHG;
-//          break;
-//        case START:
-//          chicken.status = ChickenStatus.START;
-//          break;
-//      }
-//      ScreenReceiver.toBeOff = false;
-//    }
+    //
+    // SharedPreferences sharedPref = this.getSharedPreferences("com.example.chickentime", Context.MODE_PRIVATE);
+    // if (!sharedPref.getBoolean("chickenIsAlive", true) && !ScreenReceiver.toBeOff)
+    // {
+    // sharedPref.edit().putBoolean("chickenIsAlive", true).apply();
+    // restartChicken(null);
+    // Intent intent = new Intent(this, KillChickenActivity.class);
+    // startActivity(intent);
+    // }
+    // if (ScreenReceiver.toBeOff == true)
+    // {
+    // switch (chicken.prev)
+    // {
+    // case DEAD:
+    // chicken.status = ChickenStatus.DEAD;
+    // break;
+    // case DOSTHG:
+    // chicken.status = ChickenStatus.DOSTHG;
+    // break;
+    // case START:
+    // chicken.status = ChickenStatus.START;
+    // break;
+    // }
+    // ScreenReceiver.toBeOff = false;
+    // }
   }
 
   @Override
@@ -111,7 +117,7 @@ public class MainActivity extends Activity
         chicken.prev = ChickenStatus.START;
         break;
     }
-    
+
     chicken.status = ChickenStatus.DEAD;
     new Handler().postDelayed(new Runnable()
     {
@@ -149,21 +155,75 @@ public class MainActivity extends Activity
 
   public void spawnChicken(View view)
   {
-    Log.e("CO","O");
+    Log.e("CO", "O");
     chicken.status = Chicken.ChickenStatus.DOSTHG;
-//    findViewById(R.id.button1).setVisibility(View.INVISIBLE);
-//    findViewById(R.id.button2).setVisibility(View.VISIBLE);
   }
 
-  public void increment(View view){
-    ProgressWheel pw = (ProgressWheel)findViewById(R.id.progressBarTwo);
+  public void increment(View view)
+  {
+    ProgressWheel pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
     pw.incrementProgress();
   }
-  public void restartChicken(View view)
+
+  public void incMin(View view)
   {
-//    chicken.status = Chicken.ChickenStatus.START;
-//    findViewById(R.id.button2).setVisibility(View.INVISIBLE);
-//    findViewById(R.id.button1).setVisibility(View.VISIBLE);
+    TextView tv = (TextView)findViewById(R.id.hmin);
+    date.setMinutes(date.getMinutes() + 1);
+    StringBuffer h= new StringBuffer();
+    StringBuffer m= new StringBuffer();
+    if (date.getHours()< 10)
+      h.append("0");
+    h.append(date.getHours());
+    if (date.getMinutes()<10)
+      m.append("0");
+    m.append(date.getMinutes());
+    tv.setText(h.toString() + ":" + m.toString());
+  }
+
+  public void incH(View view)
+  {
+    TextView tv = (TextView)findViewById(R.id.hmin);
+    date.setHours(date.getHours() + 1);
+    StringBuffer h= new StringBuffer();
+    StringBuffer m= new StringBuffer();
+    if (date.getHours()< 10)
+      h.append("0");
+    h.append(date.getHours());
+    if (date.getMinutes()<10)
+      m.append("0");
+    m.append(date.getMinutes());
+    tv.setText(h.toString() + ":" + m.toString());
+  }
+
+  public void decH(View view)
+  {
+    TextView tv = (TextView)findViewById(R.id.hmin);
+    date.setHours(date.getHours() - 1);
+    StringBuffer h= new StringBuffer();
+    StringBuffer m= new StringBuffer();
+    if (date.getHours()< 10)
+      h.append("0");
+    h.append(date.getHours());
+    if (date.getMinutes()<10)
+      m.append("0");
+    m.append(date.getMinutes());
+    tv.setText(h.toString() + ":" + m.toString());
+
+  }
+
+  public void decMin(View view)
+  {
+    TextView tv = (TextView)findViewById(R.id.hmin);
+    date.setMinutes(date.getMinutes() - 1);
+    StringBuffer h= new StringBuffer();
+    StringBuffer m= new StringBuffer();
+    if (date.getHours()< 10)
+      h.append("0");
+    h.append(date.getHours());
+    if (date.getMinutes()<10)
+      m.append("0");
+    m.append(date.getMinutes());
+    tv.setText(h.toString() + ":" + m.toString());
   }
 
 }
