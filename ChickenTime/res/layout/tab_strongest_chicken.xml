@@ -4,11 +4,98 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background"
-    >
+    android:layout_margin="0dp">
     
-    <TextView 
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="STRONGEST"/>
-    
+        android:orientation="vertical">
+	 
+        <LinearLayout
+            android:layout_marginBottom="-20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            
+                
+		    <TextView 
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"/>
+		    
+		    <TextView 
+			        android:id="@+id/strongest"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        style="@style/largeText"
+			        android:textAlignment="center"
+			        android:text="Strongest"/>
+		        
+		    <TextView 
+		        android:layout_width="0dp"
+		        android:layout_height="wrap_content"
+		        android:layout_weight="1"/>
+		            
+        </LinearLayout>
+        
+	
+	    <LinearLayout
+	        android:layout_margin="0dp" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            
+                
+		    <TextView 
+		        android:layout_width="0dp"
+		        android:layout_height="0dp"
+		        android:layout_weight="1"/>
+		    
+			    <TextView 
+			        android:id="@+id/chicken"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        style="@style/largeText"
+			        android:textAlignment="center"
+			        android:text="Chicken"/>
+				        
+		    <TextView 
+		        android:layout_width="0dp"
+		        android:layout_height="0dp"
+		        android:layout_weight="1"/>
+		            
+        </LinearLayout>
+           
+	    
+	    <LinearLayout
+	        android:layout_margin="0dp" 
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            
+                
+		    <TextView 
+		        android:layout_width="0dp"
+		        android:layout_height="0dp"
+		        android:layout_weight="1"/>
+		    
+			    <TextView 
+			        android:id="@+id/timeSaved"
+			        android:layout_width="wrap_content"
+			        android:layout_height="wrap_content"
+			        style="@style/largeText"
+			        android:textAlignment="center"
+			        android:text="1:25:00"/>
+				        
+		    <TextView 
+		        android:layout_width="0dp"
+		        android:layout_height="0dp"
+		        android:layout_weight="1"/>
+		            
+        </LinearLayout>
+	    
+	    
+    </LinearLayout>
+  
 </LinearLayout>
