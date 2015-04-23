@@ -92,7 +92,7 @@ public class MainActivity extends Activity
 
   public void farm(View view)
   {
-    Intent intent = new Intent(this, ListViewChickens.class);
+    Intent intent = new Intent(this, TabActivity.class);
     startActivity(intent);
   }
 
