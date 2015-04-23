@@ -127,15 +127,19 @@ public class MainActivity extends Activity
   public void spawnChicken(View view)
   {
     chicken.status = Chicken.ChickenStatus.DOSTHG;
-    findViewById(R.id.button1).setVisibility(View.INVISIBLE);
-    findViewById(R.id.button2).setVisibility(View.VISIBLE);
+//    findViewById(R.id.button1).setVisibility(View.INVISIBLE);
+//    findViewById(R.id.button2).setVisibility(View.VISIBLE);
   }
 
+  public void increment(View view){
+    ProgressWheel pw = (ProgressWheel)findViewById(R.id.progressBarTwo);
+    pw.incrementProgress();
+  }
   public void restartChicken(View view)
   {
-    chicken.status = Chicken.ChickenStatus.START;
-    findViewById(R.id.button2).setVisibility(View.INVISIBLE);
-    findViewById(R.id.button1).setVisibility(View.VISIBLE);
+//    chicken.status = Chicken.ChickenStatus.START;
+//    findViewById(R.id.button2).setVisibility(View.INVISIBLE);
+//    findViewById(R.id.button1).setVisibility(View.VISIBLE);
   }
 
 }
