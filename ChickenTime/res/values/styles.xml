@@ -21,4 +21,8 @@
         <item name="android:textSize">16dp</item>
     </style>
 
+    <style name="largeText">
+        <item name="android:textSize">56dp</item>
+    </style>
+    
 </resources>
