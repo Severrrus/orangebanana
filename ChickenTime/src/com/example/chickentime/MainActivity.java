@@ -5,6 +5,7 @@ import java.io.InputStream;
 import java.util.Date;
 import java.util.Random;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
@@ -19,6 +20,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -29,6 +31,8 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -178,6 +182,8 @@ public class MainActivity extends Activity {
 		pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
 
 		pw.setProgress(360); // progess in degrees
+		ActionBar actionBar = getActionBar();
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1d2b54"))); // set your desired color
 	}
 
 	@Override
@@ -326,7 +332,7 @@ public class MainActivity extends Activity {
 					
 					Toast toast = new Toast(getApplicationContext());
 					toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
-					toast.setDuration(Toast.LENGTH_LONG);
+					toast.setDuration(Toast.LENGTH_SHORT);
 					toast.setView(layout);
 					toast.show();
 

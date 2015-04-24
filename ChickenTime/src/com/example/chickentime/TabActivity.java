@@ -1,6 +1,9 @@
 package com.example.chickentime;
 
+import android.app.ActionBar;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -53,6 +56,10 @@ public class TabActivity extends FragmentActivity {
         mPager = (ViewPager) findViewById(R.id.pager);
         mPagerAdapter = new ScreenSlidePagerAdapter(getSupportFragmentManager());
         mPager.setAdapter(mPagerAdapter);
+        
+		ActionBar actionBar = getActionBar();
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1d2b54"))); // set your desired color
+
     }
 
  //   @Override
