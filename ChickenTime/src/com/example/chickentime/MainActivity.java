@@ -15,6 +15,8 @@ import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Gravity;
@@ -104,15 +106,6 @@ public class MainActivity extends Activity {
 
 		pw.setProgress(360); // progess in degrees
 		
-		ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
-	    Bitmap myBitmap;
-		try {
-			myBitmap = getBitmapFromAsset("animations/anim7/0000.png");
-		    kurczakView.setImageBitmap(myBitmap);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 	}              
 
 
@@ -136,6 +129,16 @@ public class MainActivity extends Activity {
 		((TextView) findViewById(R.id.seconds)).setText("00");
 		((TextView) findViewById(R.id.hmin)).setText("00:00");
 		pw.setProgress(360);
+		ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
+	    Bitmap myBitmap;
+		try {
+			myBitmap = getBitmapFromAsset("animations/anim7/0000.png");
+		    kurczakView.setImageBitmap(myBitmap);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
 
 	@Override
@@ -251,6 +254,25 @@ public class MainActivity extends Activity {
 		
 		timerHandler.postDelayed(refreshWheel, 0);
 		timerHandler.postDelayed(timerRunnable, 0);
+		
+		AnimationDrawable anim1 = new AnimationDrawable();
+	    
+		try {
+			for(int i=0; i<=51; i++){
+
+				Bitmap myBitmap = getBitmapFromAsset(String.format("animations/anim7/%04d.png", i));
+				anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+
+			}
+
+		
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
+		kurczakView.setImageDrawable(anim1);
+		anim1.start();
 	}
 
 	private void decSec() {
