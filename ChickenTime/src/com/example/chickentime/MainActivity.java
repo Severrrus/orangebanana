@@ -116,28 +116,11 @@ public class MainActivity extends Activity {
 		pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
 
 		pw.setProgress(360); // progess in degrees
-	}              
+	}
 
 	@Override
 	public void onResume() {
 		super.onResume();
-		setTrianglesVisibility(View.VISIBLE);
-		date.setHours(0);
-		date.setMinutes(0);
-		date.setSeconds(0);
-		((TextView) findViewById(R.id.seconds)).setText("00");
-		((TextView) findViewById(R.id.hmin)).setText("00:00");
-		pw.setProgress(360);
-		ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
-	    Bitmap myBitmap;
-		try {
-			myBitmap = getBitmapFromAsset("animations/anim7/0000.png");
-		    kurczakView.setImageBitmap(myBitmap);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
 	}
 
 	@Override
@@ -174,26 +157,44 @@ public class MainActivity extends Activity {
 	}
 
 	public void kill() {
-
-		try {
-			timerHandler.removeCallbacks(timerRunnable);
-		} catch (Exception e) {
-		}
-		try {
-			timerHandler.removeCallbacks(refreshWheel);
-		} catch (Exception e) {
-		}
-
-		chicken.status = ChickenStatus.START;
-		SharedPreferences sharedPref = this.getSharedPreferences(
-				"com.example.chickentime", Context.MODE_PRIVATE);
-		sharedPref.edit().putInt("killed", 1 + sharedPref.getInt("killed", 0))
-				.apply();
-
 		new Handler().postDelayed(new Runnable() {
-
 			@Override
 			public void run() {
+				if (ScreenReceiver.toBeOff == false) {
+					try {
+						timerHandler.removeCallbacks(timerRunnable);
+					} catch (Exception e) {
+					}
+					try {
+						timerHandler.removeCallbacks(refreshWheel);
+					} catch (Exception e) {
+					}
+
+					chicken.status = ChickenStatus.START;
+					SharedPreferences sharedPref = MainActivity.main
+							.getSharedPreferences("com.example.chickentime",
+									Context.MODE_PRIVATE);
+					sharedPref
+							.edit()
+							.putInt("killed",
+									1 + sharedPref.getInt("killed", 0)).apply();
+					setTrianglesVisibility(View.VISIBLE);
+					date.setHours(0);
+					date.setMinutes(0);
+					date.setSeconds(0);
+					((TextView) findViewById(R.id.seconds)).setText("00");
+					((TextView) findViewById(R.id.hmin)).setText("00:00");
+					pw.setProgress(360);
+					ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
+					Bitmap myBitmap;
+					try {
+						myBitmap = getBitmapFromAsset("animations/anim7/0000.png");
+						kurczakView.setImageBitmap(myBitmap);
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+				}
 				if (ScreenReceiver.toBeOff == false) {
 					LayoutInflater inflater = getLayoutInflater();
 					View layout = inflater.inflate(R.layout.toast_view,
@@ -245,18 +246,18 @@ public class MainActivity extends Activity {
 
 		timerHandler.postDelayed(refreshWheel, 0);
 		timerHandler.postDelayed(timerRunnable, 0);
-		
-		AnimationDrawable anim1 = new AnimationDrawable();
-	    
-		try {
-			for(int i=0; i<=51; i++){
 
-				Bitmap myBitmap = getBitmapFromAsset(String.format("animations/anim7/%04d.png", i));
-				anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+		AnimationDrawable anim1 = new AnimationDrawable();
+
+		try {
+			for (int i = 0; i <= 51; i++) {
+
+				Bitmap myBitmap = getBitmapFromAsset(String.format(
+						"animations/anim7/%04d.png", i));
+				anim1.addFrame(new BitmapDrawable(myBitmap), (1000 / 24));
 
 			}
 
-		
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
