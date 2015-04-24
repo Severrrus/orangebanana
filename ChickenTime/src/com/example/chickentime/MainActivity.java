@@ -23,12 +23,14 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -214,13 +216,12 @@ public class MainActivity extends Activity {
 	}
 
 	public void farm(View view) {
-		if (chicken.status != ChickenStatus.DOSTHG){
+		if (chicken.status != ChickenStatus.DOSTHG) {
 			Intent intent = new Intent(MainActivity.main, TabActivity.class);
 			startActivity(intent);
 			return;
 		}
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this
-				);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
 		// set title
 		alertDialogBuilder.setTitle("Caution!");
@@ -232,7 +233,8 @@ public class MainActivity extends Activity {
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								Intent intent = new Intent(MainActivity.main, TabActivity.class);
+								Intent intent = new Intent(MainActivity.main,
+										TabActivity.class);
 								startActivity(intent);
 							}
 						})
@@ -249,6 +251,40 @@ public class MainActivity extends Activity {
 		alertDialog.show();
 	}
 
+	@Override
+	public void onBackPressed() {
+		if (chicken.status != ChickenStatus.DOSTHG) {
+			super.onBackPressed();
+			return;
+		}
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+		// set title
+		alertDialogBuilder.setTitle("Caution!");
+
+		// set dialog message
+		alertDialogBuilder
+				.setMessage("Click yes to kill chicken!")
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								MainActivity.super.onBackPressed();
+							}
+						})
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+	}
+	
 	public void kill() {
 		new Handler().postDelayed(new Runnable() {
 			@Override
