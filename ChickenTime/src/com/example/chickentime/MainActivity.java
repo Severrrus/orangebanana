@@ -38,6 +38,7 @@ public class MainActivity extends Activity {
 	int total_sec;
 	long startMilisec;
 	ProgressWheel pw;
+	public Handler timerHandler;
 
     private Bitmap getBitmapFromAsset(String strName) throws IOException
     {
@@ -49,6 +50,39 @@ public class MainActivity extends Activity {
 
         return bitmap;
     }
+	Runnable timerRunnable = new Runnable() {
+
+		@Override
+		public void run() {
+			decSec();
+			if (date.getSeconds() != 0 || date.getMinutes() != 0
+					|| date.getSeconds() != 0)
+				timerHandler.postDelayed(this, 1000);
+			else {
+				// Co zrobi� jak si� sko�czy czas?
+				chicken.status = ChickenStatus.START;
+				setTrianglesVisibility(View.VISIBLE);
+			}
+		}
+	};
+
+	Runnable refreshWheel = new Runnable() {
+
+		@Override
+		public void run() {
+			pw.setProgress(360 - 360
+					* (System.currentTimeMillis() - startMilisec)
+					/ (total_sec * 1000f));
+			if (total_sec * 1000f > System.currentTimeMillis()
+					- startMilisec)
+				timerHandler.postDelayed(this, 80);
+			else 
+				pw.setProgress(360);
+		}
+	};
+	
+	
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -94,51 +128,45 @@ public class MainActivity extends Activity {
 		// {
 		// sharedPref.edit().putBoolean("chickenIsAlive", true).apply();
 		// restartChicken(null);
-		// Intent intent = new Intent(this, KillChickenActivity.class);
-		// startActivity(intent);
-		// }
-		// if (ScreenReceiver.toBeOff == true)
-		// {
-		// switch (chicken.prev)
-		// {
-		// case DEAD:
-		// chicken.status = ChickenStatus.DEAD;
-		// break;
-		// case DOSTHG:
-		// chicken.status = ChickenStatus.DOSTHG;
-		// break;
-		// case START:
-		// chicken.status = ChickenStatus.START;
-		// break;
-		// }
-		// ScreenReceiver.toBeOff = false;
-		// }
-	}
-	@Override
 
-	  public boolean onCreateOptionsMenu(Menu menu) {
-	      MenuInflater inflater = getMenuInflater();
-	      inflater.inflate(R.layout.mainmenu, menu);
-	      
-	      return true;
-	  }
+		setTrianglesVisibility(View.VISIBLE);
+		date.setHours(0);
+		date.setMinutes(0);
+		date.setSeconds(0);
+		((TextView) findViewById(R.id.seconds)).setText("00");
+		((TextView) findViewById(R.id.hmin)).setText("00:00");
+		pw.setProgress(360);
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getMenuInflater();
+		inflater.inflate(R.layout.mainmenu, menu);
+
+		return true;
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-	    // Handle presses on the action bar items
-	    switch (item.getItemId()) {
-	        case R.id.jump_farm:
-	            farm(null);
-	            return true;
-	        default:
-	            return super.onOptionsItemSelected(item);
-	    }
+		// Handle presses on the action bar items
+		switch (item.getItemId()) {
+		case R.id.jump_farm:
+			farm(null);
+			return true;
+		default:
+			return super.onOptionsItemSelected(item);
+		}
 	}
+
 	@Override
 	public void onPause() {
 		super.onPause();
 		if (chicken.status == ChickenStatus.DOSTHG)
 			kill();
 
+		timerHandler.removeCallbacks(timerRunnable);
+		timerHandler.removeCallbacks(refreshWheel);
+		
 		ScreenReceiver.toBeOff = false;
 		SharedPreferences sharedPref = this.getSharedPreferences(
 				"com.example.chickentime", Context.MODE_PRIVATE);
@@ -167,7 +195,8 @@ public class MainActivity extends Activity {
 			break;
 		}
 
-		chicken.status = ChickenStatus.DEAD;
+		chicken.status = ChickenStatus.START;
+
 		new Handler().postDelayed(new Runnable() {
 
 			@Override
@@ -201,6 +230,13 @@ public class MainActivity extends Activity {
 
 	}
 
+	public void setTrianglesVisibility(int visibil) {
+		((ImageView) findViewById(R.id.incMin)).setVisibility(visibil);
+		((ImageView) findViewById(R.id.incH)).setVisibility(visibil);
+		((ImageView) findViewById(R.id.decH)).setVisibility(visibil);
+		((ImageView) findViewById(R.id.decMin)).setVisibility(visibil);
+	}
+
 	public void spawnChicken(View view) {
 		if (chicken.status != Chicken.ChickenStatus.START)
 			return;
@@ -209,44 +245,10 @@ public class MainActivity extends Activity {
 		startMilisec = System.currentTimeMillis();
 		chicken.status = Chicken.ChickenStatus.DOSTHG;
 
-		((ImageView) findViewById(R.id.incMin)).setVisibility(View.INVISIBLE);
-		((ImageView) findViewById(R.id.incH)).setVisibility(View.INVISIBLE);
-		((ImageView) findViewById(R.id.decH)).setVisibility(View.INVISIBLE);
-		((ImageView) findViewById(R.id.decMin)).setVisibility(View.INVISIBLE);
+		setTrianglesVisibility(View.INVISIBLE);
 
-		final Handler timerHandler = new Handler();
-		Runnable timerRunnable = new Runnable() {
-
-			@Override
-			public void run() {
-				decSec();
-				if (date.getSeconds() != 0 || date.getMinutes() != 0
-						|| date.getSeconds() != 0)
-					timerHandler.postDelayed(this, 1000);
-				else {
-					// Co zrobi� jak si� sko�czy czas?
-					chicken.status = ChickenStatus.START;
-					((ImageView) findViewById(R.id.incMin))
-							.setVisibility(View.VISIBLE);
-					((ImageView) findViewById(R.id.incH))
-							.setVisibility(View.VISIBLE);
-					((ImageView) findViewById(R.id.decH))
-							.setVisibility(View.VISIBLE);
-					((ImageView) findViewById(R.id.decMin))
-							.setVisibility(View.VISIBLE);
-				}
-			}
-		};
-
-		Runnable refreshWheel = new Runnable() {
-
-			@Override
-			public void run() {
-				pw.setProgress(360 - 360 * (System.currentTimeMillis() - startMilisec)
-						/ (total_sec * 1000f));
-				timerHandler.postDelayed(this, 80);
-			}
-		};
+		timerHandler = new Handler();
+		
 		timerHandler.postDelayed(refreshWheel, 0);
 		timerHandler.postDelayed(timerRunnable, 0);
 	}
