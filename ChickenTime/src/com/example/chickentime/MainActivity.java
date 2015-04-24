@@ -1,14 +1,15 @@
 package com.example.chickentime;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
 import java.util.Random;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -60,30 +61,33 @@ public class MainActivity extends Activity {
 		@Override
 		public void run() {
 			decSec();
-			
+
 			elapsedTime++;
-			if(elapsedTime%11==0 && elapsedTime>0 && total_sec-elapsedTime>15){
+			if (elapsedTime % 11 == 0 && elapsedTime > 0
+					&& total_sec - elapsedTime > 15) {
 				Random rand = new Random();
 
-				int  n = rand.nextInt(3) + 1;
+				int n = rand.nextInt(3) + 1;
 				int size = 0;
-				if(n == 1){
+				if (n == 1) {
 					size = 20;
-				}else if(n==2){
+				} else if (n == 2) {
 					size = 40;
-				}else if(n==3){
+				} else if (n == 3) {
 					size = 30;
 				}
 				AnimationDrawable anim1 = new AnimationDrawable();
-			    
-				try {
-					for(int i=0; i<=size; i++){
 
-						Bitmap myBitmap = getBitmapFromAsset(String.format("animations/anim_idle%d/%04d.png",n, i));
-						anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+				try {
+					for (int i = 0; i <= size; i++) {
+
+						Bitmap myBitmap = getBitmapFromAsset(String.format(
+								"animations/anim_idle%d/%04d.png", n, i));
+						anim1.addFrame(new BitmapDrawable(myBitmap),
+								(1000 / 24));
 
 					}
-		
+
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -93,25 +97,26 @@ public class MainActivity extends Activity {
 				anim1.start();
 
 			}
-			
+
 			if (date.getSeconds() != 0 || date.getMinutes() != 0
 					|| date.getSeconds() != 0)
 				timerHandler.postDelayed(this, 1000);
 			else {
 				// Co zrobi� jak si� sko�czy czas?
 				AnimationDrawable anim1 = new AnimationDrawable();
-			    
-				try {
-					for(int i=0; i<=55; i++){
 
-						Bitmap myBitmap = getBitmapFromAsset(String.format("animations/anim9/%04d.png", i));
-						anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+				try {
+					for (int i = 0; i <= 55; i++) {
+
+						Bitmap myBitmap = getBitmapFromAsset(String.format(
+								"animations/anim9/%04d.png", i));
+						anim1.addFrame(new BitmapDrawable(myBitmap),
+								(1000 / 24));
 
 					}
 					Bitmap myBitmap = getBitmapFromAsset("animations/anim7/0001.png");
-					anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+					anim1.addFrame(new BitmapDrawable(myBitmap), (1000 / 24));
 
-				
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -120,7 +125,6 @@ public class MainActivity extends Activity {
 				kurczakView.setImageDrawable(anim1);
 				anim1.start();
 
-				
 				chicken.status = ChickenStatus.START;
 				setTrianglesVisibility(View.VISIBLE);
 
@@ -210,8 +214,39 @@ public class MainActivity extends Activity {
 	}
 
 	public void farm(View view) {
-		Intent intent = new Intent(this, TabActivity.class);
-		startActivity(intent);
+		if (chicken.status != ChickenStatus.DOSTHG){
+			Intent intent = new Intent(MainActivity.main, TabActivity.class);
+			startActivity(intent);
+			return;
+		}
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this
+				);
+
+		// set title
+		alertDialogBuilder.setTitle("Caution!");
+
+		// set dialog message
+		alertDialogBuilder
+				.setMessage("Click yes to kill chicken!")
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								Intent intent = new Intent(MainActivity.main, TabActivity.class);
+								startActivity(intent);
+							}
+						})
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+						dialog.cancel();
+					}
+				});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
 	}
 
 	public void kill() {
@@ -330,8 +365,7 @@ public class MainActivity extends Activity {
 
 		elapsedTime = 0;
 		AnimationDrawable anim1 = new AnimationDrawable();
-	    
-		
+
 		try {
 			for (int i = 0; i <= 51; i++) {
 
