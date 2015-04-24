@@ -15,7 +15,8 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -24,19 +25,23 @@
         </activity>
         <activity
             android:name=".KillChickenActivity"
-            android:label="@string/title_activity_kill_chicken" >
+            android:label="@string/title_activity_kill_chicken" 
+            android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".ListViewChickens"
-            android:label="@string/title_list_view_chickens" >
+            android:label="@string/title_list_view_chickens"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name=".ChickenView"
-            android:label="@string/title_activity_chicken_view" >
+            android:label="@string/title_activity_chicken_view"
+            android:screenOrientation="portrait" >
         </activity>
          <activity
             android:name=".TabActivity"
-            android:label="@string/title_activity_tab" >
+            android:label="@string/title_activity_tab"
+            android:screenOrientation="portrait" >
         </activity>
     </application>
 
