@@ -258,14 +258,37 @@ public class MainActivity extends Activity {
 					View layout = inflater.inflate(R.layout.toast_view,
 							(ViewGroup) findViewById(R.id.toast_layout_root));
 
-					TextView text = (TextView) layout.findViewById(R.id.text);
-					text.setText("Your chicken has died a miserable death!!");
+//					TextView text = (TextView) layout.findViewById(R.id.text);
+//					text.setText("Your chicken has died a miserable death!!");
 
-					WebView webview = (WebView) layout
-							.findViewById(R.id.webview);
-					webview.loadUrl("file:///android_asset/anim4.gif");
-					webview.setBackgroundColor(Color.TRANSPARENT);
+					ImageView imageView = (ImageView) layout
+							.findViewById(R.id.imageview);
+					
+					AnimationDrawable anim1 = new AnimationDrawable();
+					
+					Random rand = new Random();
+					int  n = rand.nextInt(3) + 1;
+					int size = 40;
 
+					
+					
+					try {
+						for(int i=0; i<=size; i++){
+
+							Bitmap myBitmap = getBitmapFromAsset(String.format("animations/anim_dead%d/%04d.png",n, i));
+							anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+
+						}
+					
+					} catch (IOException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					imageView.setImageDrawable(anim1);
+					anim1.start();
+
+					
+					
 					Toast toast = new Toast(getApplicationContext());
 					toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 					toast.setDuration(Toast.LENGTH_LONG);

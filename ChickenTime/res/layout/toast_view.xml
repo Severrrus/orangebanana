@@ -4,18 +4,13 @@
               android:layout_width="fill_parent"
               android:layout_height="fill_parent"
               android:padding="8dp"
-              android:background="#DAAA"
+              android:background="#00000000"
               >
 
-	<WebView  xmlns:android="http://schemas.android.com/apk/res/android"
-	   		 	android:id="@+id/webview"
-               android:layout_width="300px"
-               android:layout_height="300px"
-               android:layout_marginRight="8dp"
-	/>
-    <TextView android:id="@+id/text"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:textColor="#FFF"
-              />
+	<ImageView  
+	   		 	android:id="@+id/imageview"
+                android:layout_width="250dp"
+                android:layout_height="250dp"
+               android:layout_gravity="center"
+            />
 </LinearLayout> 
