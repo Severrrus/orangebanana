@@ -19,6 +19,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -42,16 +43,16 @@ public class MainActivity extends Activity {
 	ProgressWheel pw;
 	public Handler timerHandler;
 
-    private Bitmap getBitmapFromAsset(String strName) throws IOException
-    {
-        AssetManager assetManager = getAssets();
+	private Bitmap getBitmapFromAsset(String strName) throws IOException {
+		AssetManager assetManager = getAssets();
 
-        InputStream istr = assetManager.open(strName);
-        Bitmap bitmap = BitmapFactory.decodeStream(istr);
-        istr.close();
+		InputStream istr = assetManager.open(strName);
+		Bitmap bitmap = BitmapFactory.decodeStream(istr);
+		istr.close();
 
-        return bitmap;
-    }
+		return bitmap;
+	}
+
 	Runnable timerRunnable = new Runnable() {
 
 		@Override
@@ -65,10 +66,17 @@ public class MainActivity extends Activity {
 				chicken.status = ChickenStatus.START;
 				setTrianglesVisibility(View.VISIBLE);
 
-				SharedPreferences sharedPref = MainActivity.main.getSharedPreferences(
-						"com.example.chickentime", Context.MODE_PRIVATE);
+				SharedPreferences sharedPref = MainActivity.main
+						.getSharedPreferences("com.example.chickentime",
+								Context.MODE_PRIVATE);
 				sharedPref.edit()
 						.putInt("saved", 1 + sharedPref.getInt("saved", 0))
+						.apply();
+				Log.e("time", Integer.toString(total_sec));
+				sharedPref
+						.edit()
+						.putInt("savedTime",
+								total_sec + sharedPref.getInt("savedTime", 0))
 						.apply();
 			}
 		}
@@ -108,13 +116,28 @@ public class MainActivity extends Activity {
 		pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
 
 		pw.setProgress(360); // progess in degrees
+<<<<<<< HEAD
 		
 	}              
 
+=======
+
+		ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
+		Bitmap myBitmap;
+		try {
+			myBitmap = getBitmapFromAsset("animations/anim7/0000.png");
+			kurczakView.setImageBitmap(myBitmap);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+>>>>>>> origin/qwe
 
 	@Override
 	public void onResume() {
 		super.onResume();
+<<<<<<< HEAD
 		setTrianglesVisibility(View.VISIBLE);
 		date.setHours(0);
 		date.setMinutes(0);
@@ -132,6 +155,8 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 
+=======
+>>>>>>> origin/qwe
 	}
 
 	@Override
@@ -159,6 +184,15 @@ public class MainActivity extends Activity {
 		super.onPause();
 		if (chicken.status == ChickenStatus.DOSTHG)
 			kill();
+		ScreenReceiver.toBeOff = false;
+	}
+
+	public void farm(View view) {
+		Intent intent = new Intent(this, TabActivity.class);
+		startActivity(intent);
+	}
+
+	public void kill() {
 
 		try {
 			timerHandler.removeCallbacks(timerRunnable);
@@ -168,23 +202,6 @@ public class MainActivity extends Activity {
 			timerHandler.removeCallbacks(refreshWheel);
 		} catch (Exception e) {
 		}
-
-		ScreenReceiver.toBeOff = false;
-		SharedPreferences sharedPref = this.getSharedPreferences(
-				"com.example.chickentime", Context.MODE_PRIVATE);
-		Boolean b = true;
-		if (chicken.status == ChickenStatus.DEAD)
-			b = false;
-		sharedPref.edit().putBoolean("chickenIsAlive", b).apply();
-
-	}
-
-	public void farm(View view) {
-		Intent intent = new Intent(this, TabActivity.class);
-		startActivity(intent);
-	}
-
-	public void kill() {
 
 		chicken.status = ChickenStatus.START;
 		SharedPreferences sharedPref = this.getSharedPreferences(
@@ -233,7 +250,8 @@ public class MainActivity extends Activity {
 	}
 
 	public void spawnChicken(View view) {
-		if (chicken.status != Chicken.ChickenStatus.START)
+		if (chicken.status != Chicken.ChickenStatus.START
+				|| (date.getMinutes() == 0 && date.getHours() == 0))
 			return;
 		total_sec = 60 * (date.getMinutes() + date.getHours() * 60)
 				+ date.getSeconds();
