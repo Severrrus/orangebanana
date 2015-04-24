@@ -26,7 +26,7 @@ import android.widget.Toast;
 import com.example.chickentime.Chicken.ChickenStatus;
 
 public class MainActivity extends Activity {
-	static MainActivity main;
+	public static MainActivity main;
 	Chicken chicken;
 	Date date;
 	int total_sec;
@@ -46,6 +46,12 @@ public class MainActivity extends Activity {
 				// Co zrobi� jak si� sko�czy czas?
 				chicken.status = ChickenStatus.START;
 				setTrianglesVisibility(View.VISIBLE);
+
+				SharedPreferences sharedPref = MainActivity.main.getSharedPreferences(
+						"com.example.chickentime", Context.MODE_PRIVATE);
+				sharedPref.edit()
+						.putInt("saved", 1 + sharedPref.getInt("saved", 0))
+						.apply();
 			}
 		}
 	};
@@ -57,16 +63,13 @@ public class MainActivity extends Activity {
 			pw.setProgress(360 - 360
 					* (System.currentTimeMillis() - startMilisec)
 					/ (total_sec * 1000f));
-			if (total_sec * 1000f > System.currentTimeMillis()
-					- startMilisec)
+			if (total_sec * 1000f > System.currentTimeMillis() - startMilisec)
 				timerHandler.postDelayed(this, 80);
-			else 
+			else
 				pw.setProgress(360);
 		}
 	};
-	
-	
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -92,16 +95,6 @@ public class MainActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		//
-		// SharedPreferences sharedPref =
-		// this.getSharedPreferences("com.example.chickentime",
-		// Context.MODE_PRIVATE);
-		// if (!sharedPref.getBoolean("chickenIsAlive", true) &&
-		// !ScreenReceiver.toBeOff)
-		// {
-		// sharedPref.edit().putBoolean("chickenIsAlive", true).apply();
-		// restartChicken(null);
-
 		setTrianglesVisibility(View.VISIBLE);
 		date.setHours(0);
 		date.setMinutes(0);
@@ -137,9 +130,15 @@ public class MainActivity extends Activity {
 		if (chicken.status == ChickenStatus.DOSTHG)
 			kill();
 
-		timerHandler.removeCallbacks(timerRunnable);
-		timerHandler.removeCallbacks(refreshWheel);
-		
+		try {
+			timerHandler.removeCallbacks(timerRunnable);
+		} catch (Exception e) {
+		}
+		try {
+			timerHandler.removeCallbacks(refreshWheel);
+		} catch (Exception e) {
+		}
+
 		ScreenReceiver.toBeOff = false;
 		SharedPreferences sharedPref = this.getSharedPreferences(
 				"com.example.chickentime", Context.MODE_PRIVATE);
@@ -156,19 +155,12 @@ public class MainActivity extends Activity {
 	}
 
 	public void kill() {
-		switch (chicken.status) {
-		case DEAD:
-			chicken.prev = ChickenStatus.DEAD;
-			break;
-		case DOSTHG:
-			chicken.prev = ChickenStatus.DOSTHG;
-			break;
-		case START:
-			chicken.prev = ChickenStatus.START;
-			break;
-		}
 
 		chicken.status = ChickenStatus.START;
+		SharedPreferences sharedPref = this.getSharedPreferences(
+				"com.example.chickentime", Context.MODE_PRIVATE);
+		sharedPref.edit().putInt("killed", 1 + sharedPref.getInt("killed", 0))
+				.apply();
 
 		new Handler().postDelayed(new Runnable() {
 
@@ -221,7 +213,7 @@ public class MainActivity extends Activity {
 		setTrianglesVisibility(View.INVISIBLE);
 
 		timerHandler = new Handler();
-		
+
 		timerHandler.postDelayed(refreshWheel, 0);
 		timerHandler.postDelayed(timerRunnable, 0);
 	}

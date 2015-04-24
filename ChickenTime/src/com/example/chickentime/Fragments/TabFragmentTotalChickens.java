@@ -1,6 +1,8 @@
 package com.example.chickentime.Fragments;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.chickentime.MainActivity;
 import com.example.chickentime.R;
 
 public class TabFragmentTotalChickens extends Fragment {
@@ -16,9 +19,15 @@ public class TabFragmentTotalChickens extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
+    	SharedPreferences sharedPref = MainActivity.main.getSharedPreferences(
+				"com.example.chickentime", Context.MODE_PRIVATE);
+		int savedChickens = sharedPref.getInt("saved", 0);
+		int killedChickens = sharedPref.getInt("killed", 0);
+    	
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.tab_total_chickens, container, false);
 
+        
         Typeface myTypeface = Typeface.createFromAsset(getActivity().getAssets(), "fonts/HelveticaNeue.dfont");
         TextView textViewSurvivedChickensAmount = (TextView) rootView.findViewById(R.id.totalSurvivedChickensAmount);
         TextView textViewPercentageSavedToKill = (TextView) rootView.findViewById(R.id.percentageSavedToKill);
@@ -45,6 +54,10 @@ public class TabFragmentTotalChickens extends Fragment {
         textViewThisWeekTag.setTypeface(myTypeface);
         textViewTotalTag.setTypeface(myTypeface);
         
+        
+       textViewKilledChickensAmount.setText(Integer.toString(killedChickens));
+       textViewSurvivedChickensAmount.setText(Integer.toString(savedChickens));
+       textViewPercentageSavedToKill.setText(Float.toString((100f * savedChickens) / (savedChickens + killedChickens)).replaceFirst(".0$", "") + '%' );
         return rootView;
     }
 }
