@@ -62,7 +62,7 @@ public class MainActivity extends Activity {
 			decSec();
 			
 			elapsedTime++;
-			if(elapsedTime%20==0){
+			if(elapsedTime%11==0 && elapsedTime>0 && total_sec-elapsedTime>15){
 				Random rand = new Random();
 
 				int  n = rand.nextInt(3) + 1;
@@ -79,8 +79,9 @@ public class MainActivity extends Activity {
 				try {
 					for(int i=0; i<=size; i++){
 
-						Bitmap myBitmap = getBitmapFromAsset(String.format("animations/anim_idle%d/%04d.png",n ,i));
+						Bitmap myBitmap = getBitmapFromAsset(String.format("animations/anim_idle%d/%04d.png",n, i));
 						anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+
 					}
 		
 				} catch (IOException e) {
