@@ -1,113 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background"
-    android:layout_margin="0dp">
+    android:layout_margin="0dp"
+    android:background="@drawable/background" >
 
-    
-    
     <LinearLayout
-        android:layout_marginTop="24dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-	 
+        android:layout_height="match_parent"
+        android:layout_marginTop="24dp"
+        android:orientation="vertical" >
+
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_marginBottom="-20dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/killed"
+                style="@style/largeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Killed"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            
-                
-		    <TextView 
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"/>
-		    
-		    <TextView 
-			        android:id="@+id/killed"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        style="@style/largeText"
-			        android:textAlignment="center"
-			        android:text="Killed"/>
-		        
-		    <TextView 
-		        android:layout_width="0dp"
-		        android:layout_height="wrap_content"
-		        android:layout_weight="1"/>
-		            
+            android:layout_margin="0dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/chickens"
+                style="@style/largeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chickens"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
         </LinearLayout>
-        
-	
-	    <LinearLayout
-	        android:layout_margin="0dp" 
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            
-                
-		    <TextView 
-		        android:layout_width="0dp"
-		        android:layout_height="0dp"
-		        android:layout_weight="1"/>
-		    
-			    <TextView 
-			        android:id="@+id/chickens"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        style="@style/largeText"
-			        android:textAlignment="center"
-			        android:text="Chickens"/>
-				        
-		    <TextView 
-		        android:layout_width="0dp"
-		        android:layout_height="0dp"
-		        android:layout_weight="1"/>
-		            
+            android:layout_margin="0dp"
+            android:orientation="horizontal" >
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/killedAmount"
+                style="@style/largeText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="34"
+                android:textAlignment="center" />
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
         </LinearLayout>
-           
-	    
-	    <LinearLayout
-	        android:layout_margin="0dp" 
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-            
-                
-		    <TextView 
-		        android:layout_width="0dp"
-		        android:layout_height="0dp"
-		        android:layout_weight="1"/>
-		    
-			    <TextView 
-			        android:id="@+id/killedAmount"
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        style="@style/largeText"
-			        android:textAlignment="center"
-			        android:text="34"/>
-				        
-		    <TextView 
-		        android:layout_width="0dp"
-		        android:layout_height="0dp"
-		        android:layout_weight="1"/>
-		            
+
+        <LinearLayout
+            android:id="@+id/achstat"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal|bottom"
+            android:orientation="vertical" >
+			<TextView
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+            <ProgressBar
+                android:id="@+id/progressBar1"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="250dp"
+                android:layout_height="30dp"
+                android:layout_gravity="bottom"
+                android:background="#0015FF"
+                android:indeterminate="false"
+                android:indeterminateBehavior="repeat"
+                android:max="100"
+                android:progress="70"
+                android:progressDrawable="@drawable/custom_bar" />
+
         </LinearLayout>
-	    
-	    <ProgressBar
-        android:id="@+id/progressBar1"
-        style="?android:attr/progressBarStyleHorizontal"
-        android:layout_width="250dp"
-        android:layout_height="40dp"
-        android:background="#0015FF"
-        android:indeterminate="false"
-        android:indeterminateBehavior="repeat"
-        android:max="100"
-        android:progress="70"
-        android:progressDrawable="@drawable/custom_bar" />
     </LinearLayout>
-  
+
 </LinearLayout>
