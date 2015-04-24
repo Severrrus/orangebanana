@@ -39,6 +39,7 @@
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
+                android:layout_marginRight="-6dp"
                 android:onClick="spawnChicken"
                 android:src="@drawable/test" />
 
