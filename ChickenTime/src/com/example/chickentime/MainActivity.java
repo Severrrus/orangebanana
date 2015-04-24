@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Date;
+import java.util.Random;
 
 import android.app.Activity;
 import android.content.BroadcastReceiver;
@@ -39,6 +40,7 @@ public class MainActivity extends Activity {
 	Chicken chicken;
 	Date date;
 	int total_sec;
+	int elapsedTime;
 	long startMilisec;
 	ProgressWheel pw;
 	public Handler timerHandler;
@@ -58,11 +60,66 @@ public class MainActivity extends Activity {
 		@Override
 		public void run() {
 			decSec();
+			
+			elapsedTime++;
+			if(elapsedTime%20==0){
+				Random rand = new Random();
+
+				int  n = rand.nextInt(3) + 1;
+				int size = 0;
+				if(n == 1){
+					size = 20;
+				}else if(n==2){
+					size = 40;
+				}else if(n==3){
+					size = 30;
+				}
+				AnimationDrawable anim1 = new AnimationDrawable();
+			    
+				try {
+					for(int i=0; i<=size; i++){
+
+						Bitmap myBitmap = getBitmapFromAsset(String.format("animations/anim_idle%d/%04d.png",n ,i));
+						anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+					}
+		
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
+				kurczakView.setImageDrawable(anim1);
+				anim1.start();
+
+			}
+			
 			if (date.getSeconds() != 0 || date.getMinutes() != 0
 					|| date.getSeconds() != 0)
 				timerHandler.postDelayed(this, 1000);
 			else {
 				// Co zrobi� jak si� sko�czy czas?
+				AnimationDrawable anim1 = new AnimationDrawable();
+			    
+				try {
+					for(int i=0; i<=55; i++){
+
+						Bitmap myBitmap = getBitmapFromAsset(String.format("animations/anim9/%04d.png", i));
+						anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+
+					}
+					Bitmap myBitmap = getBitmapFromAsset("animations/anim7/0001.png");
+					anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+
+				
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
+				kurczakView.setImageDrawable(anim1);
+				anim1.start();
+
+				
 				chicken.status = ChickenStatus.START;
 				setTrianglesVisibility(View.VISIBLE);
 
@@ -247,8 +304,10 @@ public class MainActivity extends Activity {
 		timerHandler.postDelayed(refreshWheel, 0);
 		timerHandler.postDelayed(timerRunnable, 0);
 
+		elapsedTime = 0;
 		AnimationDrawable anim1 = new AnimationDrawable();
-
+	    
+		
 		try {
 			for (int i = 0; i <= 51; i++) {
 
