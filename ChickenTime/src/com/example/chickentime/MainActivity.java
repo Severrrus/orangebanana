@@ -17,6 +17,7 @@ import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -40,16 +41,16 @@ public class MainActivity extends Activity {
 	ProgressWheel pw;
 	public Handler timerHandler;
 
-    private Bitmap getBitmapFromAsset(String strName) throws IOException
-    {
-        AssetManager assetManager = getAssets();
+	private Bitmap getBitmapFromAsset(String strName) throws IOException {
+		AssetManager assetManager = getAssets();
 
-        InputStream istr = assetManager.open(strName);
-        Bitmap bitmap = BitmapFactory.decodeStream(istr);
-        istr.close();
+		InputStream istr = assetManager.open(strName);
+		Bitmap bitmap = BitmapFactory.decodeStream(istr);
+		istr.close();
 
-        return bitmap;
-    }
+		return bitmap;
+	}
+
 	Runnable timerRunnable = new Runnable() {
 
 		@Override
@@ -63,10 +64,15 @@ public class MainActivity extends Activity {
 				chicken.status = ChickenStatus.START;
 				setTrianglesVisibility(View.VISIBLE);
 
-				SharedPreferences sharedPref = MainActivity.main.getSharedPreferences(
-						"com.example.chickentime", Context.MODE_PRIVATE);
+				SharedPreferences sharedPref = MainActivity.main
+						.getSharedPreferences("com.example.chickentime",
+								Context.MODE_PRIVATE);
 				sharedPref.edit()
 						.putInt("saved", 1 + sharedPref.getInt("saved", 0))
+						.apply();
+				Log.e("time", Integer.toString(total_sec));
+				sharedPref.edit()
+						.putInt("savedTime", total_sec + sharedPref.getInt("savedTime", 0))
 						.apply();
 			}
 		}
@@ -106,18 +112,17 @@ public class MainActivity extends Activity {
 		pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
 
 		pw.setProgress(360); // progess in degrees
-		
+
 		ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
-	    Bitmap myBitmap;
+		Bitmap myBitmap;
 		try {
 			myBitmap = getBitmapFromAsset("animations/anim7/0000.png");
-		    kurczakView.setImageBitmap(myBitmap);
+			kurczakView.setImageBitmap(myBitmap);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}              
-
+	}
 
 	@Override
 	public void onResume() {
@@ -230,7 +235,7 @@ public class MainActivity extends Activity {
 	}
 
 	public void spawnChicken(View view) {
-		if (chicken.status != Chicken.ChickenStatus.START)
+		if (chicken.status != Chicken.ChickenStatus.START || (date.getMinutes() == 0 && date.getHours() == 0))
 			return;
 		total_sec = 60 * (date.getMinutes() + date.getHours() * 60)
 				+ date.getSeconds();
