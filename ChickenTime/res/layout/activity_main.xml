@@ -36,13 +36,11 @@
 
             <ImageView
                 android:id="@+id/imageView1"
-                android:layout_width="match_parent"
-                android:layout_height="194dp"
-                android:layout_marginTop="50dp"
-                android:contentDescription="Chicken"
-                android:maxWidth="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
                 android:onClick="spawnChicken"
-                android:src="@drawable/kurczak" />
+                android:src="@drawable/test" />
 
         </FrameLayout>
 

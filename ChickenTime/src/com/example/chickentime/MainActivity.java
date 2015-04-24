@@ -1,5 +1,8 @@
 package com.example.chickentime;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
 
 import android.app.Activity;
@@ -8,6 +11,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.content.res.AssetManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -34,6 +40,16 @@ public class MainActivity extends Activity {
 	ProgressWheel pw;
 	public Handler timerHandler;
 
+    private Bitmap getBitmapFromAsset(String strName) throws IOException
+    {
+        AssetManager assetManager = getAssets();
+
+        InputStream istr = assetManager.open(strName);
+        Bitmap bitmap = BitmapFactory.decodeStream(istr);
+        istr.close();
+
+        return bitmap;
+    }
 	Runnable timerRunnable = new Runnable() {
 
 		@Override
@@ -90,7 +106,18 @@ public class MainActivity extends Activity {
 		pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
 
 		pw.setProgress(360); // progess in degrees
-	}
+		
+		ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
+	    Bitmap myBitmap;
+		try {
+			myBitmap = getBitmapFromAsset("animations/anim7/0000.png");
+		    kurczakView.setImageBitmap(myBitmap);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}              
+
 
 	@Override
 	public void onResume() {
