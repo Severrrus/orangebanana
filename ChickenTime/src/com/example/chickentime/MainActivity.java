@@ -139,6 +139,9 @@ public class MainActivity extends Activity {
 				sharedPref.edit()
 						.putInt("saved", 1 + sharedPref.getInt("saved", 0))
 						.apply();
+				sharedPref.edit()
+				.putInt("longest", Math.max(sharedPref.getInt("longest", 0), total_sec))
+				.apply();
 				Log.e("time", Integer.toString(total_sec));
 				sharedPref
 						.edit()
@@ -159,7 +162,7 @@ public class MainActivity extends Activity {
 			if (total_sec * 1000f > System.currentTimeMillis() - startMilisec)
 				timerHandler.postDelayed(this, 80);
 			else
-				pw.setProgress(360);
+				pw.setProgress(0);
 		}
 	};
 
@@ -182,7 +185,7 @@ public class MainActivity extends Activity {
 
 		pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
 
-		pw.setProgress(360); // progess in degrees
+		pw.setProgress(0); // progess in degrees
 		ActionBar actionBar = getActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1d2b54"))); // set your desired color
 	}
@@ -318,7 +321,7 @@ public class MainActivity extends Activity {
 					date.setSeconds(0);
 					((TextView) findViewById(R.id.seconds)).setText("00");
 					((TextView) findViewById(R.id.hmin)).setText("00:00");
-					pw.setProgress(360);
+					pw.setProgress(0);
 					ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
 					Bitmap myBitmap;
 					try {
@@ -395,6 +398,7 @@ public class MainActivity extends Activity {
 		if (chicken.status != Chicken.ChickenStatus.START
 				|| (date.getMinutes() == 0 && date.getHours() == 0))
 			return;
+		pw.setProgress(360);
 		total_sec = 60 * (date.getMinutes() + date.getHours() * 60)
 				+ date.getSeconds();
 		startMilisec = System.currentTimeMillis();

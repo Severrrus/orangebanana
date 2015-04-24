@@ -60,7 +60,9 @@ public class TabFragmentTotalChickens extends Fragment {
        textViewSurvivedChickensAmount.setText(Integer.toString(savedChickens));
        textViewPercentageSavedToKill.setText(Float.toString((100f * savedChickens) / (savedChickens + killedChickens)).replaceFirst("\\..*$", "") + '%' );
        textViewTimeSavedTotalAmount.setText(Integer.toString(savedTime / 3600)+"h "+Integer.toString(savedTime/60) + "min");
-       textViewTimeSavedThisWeek.setText(Integer.toString(savedTime / 3600)+"h "+Integer.toString(savedTime/60) + "min");
+       textViewTimeSavedThisWeek.setText(Integer.toString(savedTime / 3600)+"h "+Integer.toString((savedTime%3600)/60) + "min");
+       if (savedChickens + killedChickens == 0)
+    	   textViewPercentageSavedToKill.setText("0%");
        return rootView;
     }
 }
