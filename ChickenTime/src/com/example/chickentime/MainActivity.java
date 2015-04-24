@@ -308,8 +308,11 @@ public class MainActivity extends Activity {
 					AnimationDrawable anim1 = new AnimationDrawable();
 					
 					Random rand = new Random();
-					int  n = rand.nextInt(3) + 1;
+					int  n = rand.nextInt(4) + 1;
 					int size = 40;
+					if(n==4){
+						size = 20;
+					}
 
 					
 					
