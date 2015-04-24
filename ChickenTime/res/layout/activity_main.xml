@@ -3,8 +3,7 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:background="@drawable/background"
-    android:orientation="vertical" >
-
+    android:orientation="vertical" xmlns:app="http://schemas.android.com/apk/res/com.example.chickentime">
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
@@ -23,23 +22,26 @@
                 android:id="@+id/progressBarTwo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                ProgressWheel:barColor="#80FFFFFF"
+                ProgressWheel:barColor="#cd2c24"
                 ProgressWheel:barLength="60dp"
                 ProgressWheel:barWidth="25dp"
                 ProgressWheel:contourColor="#80FFFFFF"
+                ProgressWheel:contourSize ="0dp"
                 ProgressWheel:rimColor="#cd2c24"
-                ProgressWheel:rimWidth="25dp"
+                ProgressWheel:rimWidth="0dp"
                 ProgressWheel:spinSpeed="3dp"
                 ProgressWheel:textColor="#222222"
-                ProgressWheel:textSize="14sp" />
+                ProgressWheel:textSize="14sp"
+                 />
 
             <ImageView
                 android:id="@+id/imageView1"
-                android:layout_width="558dp"
+                android:layout_width="match_parent"
                 android:layout_height="194dp"
-                android:layout_marginLeft="-120dp"
                 android:layout_marginTop="50dp"
+                android:contentDescription="Chicken"
                 android:maxWidth="10dp"
+                android:onClick="spawnChicken"
                 android:src="@drawable/kurczak" />
 
         </FrameLayout>
@@ -53,15 +55,6 @@
             android:onClick="spawnChicken"
             android:text="Spawn Chicken" />
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="25dp"
-            android:layout_toRightOf="@+id/button2"
-            android:onClick="farm"
-            android:text="Farm" />
     </LinearLayout>
 
     <LinearLayout
@@ -134,7 +127,6 @@
                 android:id="@+id/seconds"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="top|center_vertical"
                 android:text="00"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="30sp" />
@@ -186,19 +178,5 @@
                 android:layout_weight="2" />
         </LinearLayout>
     </LinearLayout>
-
-    <Button
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:text="Farm"
-        android:background="#00FFFFFF"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:textSize="35sp" 
-        android:onClick="farm"/>
 
 </RelativeLayout>

@@ -23,9 +23,9 @@ public class ProgressWheel extends View {
     //Sizes (with defaults)
     private int layout_height = 0;
     private int layout_width = 0;
-    private int fullRadius = 100;
-    private int circleRadius = 80;
-    private int barLength = 60;
+    private float fullRadius = 100;
+    private float circleRadius = 80;
+    private float barLength = 60;
     private int barWidth = 20;
     private int rimWidth = 20;
     private int textSize = 20;
@@ -63,7 +63,7 @@ public class ProgressWheel extends View {
     private int spinSpeed = 2;
     //The number of milliseconds to wait inbetween each draw
     private int delayMillis = 0;
-    int progress = 0;
+    float progress = 0;
     boolean isSpinning = false;
 
     //Other
@@ -241,7 +241,7 @@ public class ProgressWheel extends View {
 
         barColor = a.getColor(R.styleable.ProgressWheel_barColor, barColor);
 
-        barLength = (int) a.getDimension(R.styleable.ProgressWheel_barLength,
+        barLength = a.getDimension(R.styleable.ProgressWheel_barLength,
                 barLength);
 
         textSize = (int) a.getDimension(R.styleable.ProgressWheel_textSize,//.ProgressWheel_textSize,
@@ -276,17 +276,17 @@ public class ProgressWheel extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         //Draw the inner circle
-        canvas.drawArc(circleBounds, 360, 360, false, circlePaint);
+        //canvas.drawArc(circleBounds, 360, 360, false, circlePaint);
         //Draw the rim
-        canvas.drawArc(circleBounds, 360, 360, false, rimPaint);
-        canvas.drawArc(circleOuterContour, 360, 360, false, contourPaint);
-        canvas.drawArc(circleInnerContour, 360, 360, false, contourPaint);
+        //canvas.drawArc(circleBounds, 360, 360, false, rimPaint);
+        //canvas.drawArc(circleOuterContour, 360, 360, false, contourPaint);
+        //canvas.drawArc(circleInnerContour, 360, 360, false, contourPaint);
         //Draw the bar
         if (isSpinning) {
             canvas.drawArc(circleBounds, progress - 90, barLength, false,
                     barPaint);
         } else {
-            canvas.drawArc(circleBounds, -90, progress, false, barPaint);
+            canvas.drawArc(circleBounds, -90, -progress, false, barPaint);
         }
         //Draw the text (attempts to center it horizontally and vertically)
         float textHeight = textPaint.descent() - textPaint.ascent();
@@ -360,7 +360,7 @@ public class ProgressWheel extends View {
     /**
      * Set the progress to a specific value
      */
-    public void setProgress(int i) {
+    public void setProgress(float i) {
         isSpinning = false;
         progress = i;
         postInvalidate();
@@ -381,7 +381,7 @@ public class ProgressWheel extends View {
         splitText = this.text.split("\n");
     }
 
-    public int getCircleRadius() {
+    public float getCircleRadius() {
         return circleRadius;
     }
 
@@ -389,7 +389,7 @@ public class ProgressWheel extends View {
         this.circleRadius = circleRadius;
     }
 
-    public int getBarLength() {
+    public float getBarLength() {
         return barLength;
     }
 

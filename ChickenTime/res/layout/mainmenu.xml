@@ -1,0 +1,8 @@
+	<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+            <item android:id="@+id/jump_farm"
+				  android:title="The Farm"
+                  android:showAsAction="always|withText" 
+                  android:paddingRight="20dp"
+                 />
+            
+	</menu>
