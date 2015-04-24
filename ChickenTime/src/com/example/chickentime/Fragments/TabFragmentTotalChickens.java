@@ -23,6 +23,7 @@ public class TabFragmentTotalChickens extends Fragment {
 				"com.example.chickentime", Context.MODE_PRIVATE);
 		int savedChickens = sharedPref.getInt("saved", 0);
 		int killedChickens = sharedPref.getInt("killed", 0);
+		int savedTime = sharedPref.getInt("savedTime", 0) + 1;
     	
         ViewGroup rootView = (ViewGroup) inflater.inflate(
                 R.layout.tab_total_chickens, container, false);
@@ -57,7 +58,9 @@ public class TabFragmentTotalChickens extends Fragment {
         
        textViewKilledChickensAmount.setText(Integer.toString(killedChickens));
        textViewSurvivedChickensAmount.setText(Integer.toString(savedChickens));
-       textViewPercentageSavedToKill.setText(Float.toString((100f * savedChickens) / (savedChickens + killedChickens)).replaceFirst(".0$", "") + '%' );
-        return rootView;
+       textViewPercentageSavedToKill.setText(Float.toString((100f * savedChickens) / (savedChickens + killedChickens)).replaceFirst("\\..*$", "") + '%' );
+       textViewTimeSavedTotalAmount.setText(Integer.toString(savedTime / 3600)+"h "+Integer.toString(savedTime/60) + "min");
+       textViewTimeSavedThisWeek.setText(Integer.toString(savedTime / 3600)+"h "+Integer.toString(savedTime/60) + "min");
+       return rootView;
     }
 }

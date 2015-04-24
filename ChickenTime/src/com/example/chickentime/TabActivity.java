@@ -81,11 +81,11 @@ public class TabActivity extends FragmentActivity {
         	if(position == 3){
         		return new TabFragmentStrongestChicken();
         	}else if(position == 2){
-        		return new TabFragmentTotalChickens();
-        	}else if(position == 1){
         		return new TabFragmentKilledChickens();
-        	}else{
+        	}else if(position == 1){
         		return new TabFragmentSavedChickens();
+        	}else{
+        		return new TabFragmentTotalChickens();
         	}
         }
 
