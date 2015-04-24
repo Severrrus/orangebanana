@@ -116,28 +116,11 @@ public class MainActivity extends Activity {
 		pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
 
 		pw.setProgress(360); // progess in degrees
-<<<<<<< HEAD
-		
 	}              
-
-=======
-
-		ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
-		Bitmap myBitmap;
-		try {
-			myBitmap = getBitmapFromAsset("animations/anim7/0000.png");
-			kurczakView.setImageBitmap(myBitmap);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
->>>>>>> origin/qwe
 
 	@Override
 	public void onResume() {
 		super.onResume();
-<<<<<<< HEAD
 		setTrianglesVisibility(View.VISIBLE);
 		date.setHours(0);
 		date.setMinutes(0);
@@ -155,8 +138,6 @@ public class MainActivity extends Activity {
 			e.printStackTrace();
 		}
 
-=======
->>>>>>> origin/qwe
 	}
 
 	@Override
