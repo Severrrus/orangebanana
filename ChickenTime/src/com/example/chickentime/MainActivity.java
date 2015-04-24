@@ -71,8 +71,10 @@ public class MainActivity extends Activity {
 						.putInt("saved", 1 + sharedPref.getInt("saved", 0))
 						.apply();
 				Log.e("time", Integer.toString(total_sec));
-				sharedPref.edit()
-						.putInt("savedTime", total_sec + sharedPref.getInt("savedTime", 0))
+				sharedPref
+						.edit()
+						.putInt("savedTime",
+								total_sec + sharedPref.getInt("savedTime", 0))
 						.apply();
 			}
 		}
@@ -127,13 +129,6 @@ public class MainActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
-		setTrianglesVisibility(View.VISIBLE);
-		date.setHours(0);
-		date.setMinutes(0);
-		date.setSeconds(0);
-		((TextView) findViewById(R.id.seconds)).setText("00");
-		((TextView) findViewById(R.id.hmin)).setText("00:00");
-		pw.setProgress(360);
 	}
 
 	@Override
@@ -161,6 +156,15 @@ public class MainActivity extends Activity {
 		super.onPause();
 		if (chicken.status == ChickenStatus.DOSTHG)
 			kill();
+		ScreenReceiver.toBeOff = false;
+	}
+
+	public void farm(View view) {
+		Intent intent = new Intent(this, TabActivity.class);
+		startActivity(intent);
+	}
+
+	public void kill() {
 
 		try {
 			timerHandler.removeCallbacks(timerRunnable);
@@ -170,23 +174,6 @@ public class MainActivity extends Activity {
 			timerHandler.removeCallbacks(refreshWheel);
 		} catch (Exception e) {
 		}
-
-		ScreenReceiver.toBeOff = false;
-		SharedPreferences sharedPref = this.getSharedPreferences(
-				"com.example.chickentime", Context.MODE_PRIVATE);
-		Boolean b = true;
-		if (chicken.status == ChickenStatus.DEAD)
-			b = false;
-		sharedPref.edit().putBoolean("chickenIsAlive", b).apply();
-
-	}
-
-	public void farm(View view) {
-		Intent intent = new Intent(this, TabActivity.class);
-		startActivity(intent);
-	}
-
-	public void kill() {
 
 		chicken.status = ChickenStatus.START;
 		SharedPreferences sharedPref = this.getSharedPreferences(
@@ -235,7 +222,8 @@ public class MainActivity extends Activity {
 	}
 
 	public void spawnChicken(View view) {
-		if (chicken.status != Chicken.ChickenStatus.START || (date.getMinutes() == 0 && date.getHours() == 0))
+		if (chicken.status != Chicken.ChickenStatus.START
+				|| (date.getMinutes() == 0 && date.getHours() == 0))
 			return;
 		total_sec = 60 * (date.getMinutes() + date.getHours() * 60)
 				+ date.getSeconds();
