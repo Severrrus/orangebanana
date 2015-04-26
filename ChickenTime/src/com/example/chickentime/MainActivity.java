@@ -25,16 +25,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
-import android.webkit.WebView;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -65,7 +62,10 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void run() {
-			decSec();
+			long seconds = (total_sec*1000 - (System.currentTimeMillis() - startMilisec));
+			while ((date.getSeconds() + date.getMinutes() * 60 + date.getHours() * 3600) * 1000 > Math.max(0, seconds))
+				decSec();
+			updateTimer();
 
 			elapsedTime++;
 			if (elapsedTime % 11 == 0 && elapsedTime > 0
@@ -108,6 +108,7 @@ public class MainActivity extends Activity {
 				timerHandler.postDelayed(this, 1000);
 			else {
 				// Co zrobi� jak si� sko�czy czas?
+				Log.e("Czas", "KONIEC");
 				AnimationDrawable anim1 = new AnimationDrawable();
 
 				try {
@@ -139,9 +140,11 @@ public class MainActivity extends Activity {
 				sharedPref.edit()
 						.putInt("saved", 1 + sharedPref.getInt("saved", 0))
 						.apply();
-				sharedPref.edit()
-				.putInt("longest", Math.max(sharedPref.getInt("longest", 0), total_sec))
-				.apply();
+				sharedPref
+						.edit()
+						.putInt("longest",
+								Math.max(sharedPref.getInt("longest", 0),
+										total_sec)).apply();
 				Log.e("time", Integer.toString(total_sec));
 				sharedPref
 						.edit()
@@ -150,6 +153,7 @@ public class MainActivity extends Activity {
 						.apply();
 			}
 		}
+
 	};
 
 	Runnable refreshWheel = new Runnable() {
@@ -187,7 +191,47 @@ public class MainActivity extends Activity {
 
 		pw.setProgress(0); // progess in degrees
 		ActionBar actionBar = getActionBar();
-		actionBar.setBackgroundDrawable(new ColorDrawable(Color.parseColor("#1d2b54"))); // set your desired color
+		actionBar.setBackgroundDrawable(new ColorDrawable(Color
+				.parseColor("#1d2b54"))); // set your desired color
+		
+		longClicks();
+	}
+
+	private void longClicks() {
+		final ImageView incMin = (ImageView) (findViewById(R.id.incMin));
+		incMin.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				final Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						if (incMin.isPressed()) {
+							incMin(null);
+							onLongClick(null);
+						}
+					}
+				}, 80);
+				return true;
+			}
+		});	
+		final ImageView decMin = (ImageView) (findViewById(R.id.decMin));
+		decMin.setOnLongClickListener(new OnLongClickListener() {
+			@Override
+			public boolean onLongClick(View v) {
+				final Handler handler = new Handler();
+				handler.postDelayed(new Runnable() {
+					@Override
+					public void run() {
+						if (decMin.isPressed()) {
+							decMin(null);
+							onLongClick(null);
+						}
+					}
+				}, 80);
+				return true;
+			}
+		});
 	}
 
 	@Override
@@ -292,7 +336,7 @@ public class MainActivity extends Activity {
 		// show it
 		alertDialog.show();
 	}
-	
+
 	public void kill() {
 		new Handler().postDelayed(new Runnable() {
 			@Override
@@ -337,31 +381,32 @@ public class MainActivity extends Activity {
 					View layout = inflater.inflate(R.layout.toast_view,
 							(ViewGroup) findViewById(R.id.toast_layout_root));
 
-//					TextView text = (TextView) layout.findViewById(R.id.text);
-//					text.setText("Your chicken has died a miserable death!!");
+					// TextView text = (TextView)
+					// layout.findViewById(R.id.text);
+					// text.setText("Your chicken has died a miserable death!!");
 
 					ImageView imageView = (ImageView) layout
 							.findViewById(R.id.imageview);
-					
+
 					AnimationDrawable anim1 = new AnimationDrawable();
-					
+
 					Random rand = new Random();
-					int  n = rand.nextInt(4) + 1;
+					int n = rand.nextInt(4) + 1;
 					int size = 40;
-					if(n==4){
+					if (n == 4) {
 						size = 20;
 					}
 
-					
-					
 					try {
-						for(int i=0; i<=size; i++){
+						for (int i = 0; i <= size; i++) {
 
-							Bitmap myBitmap = getBitmapFromAsset(String.format("animations/anim_dead%d/%04d.png",n, i));
-							anim1.addFrame(new BitmapDrawable(myBitmap), (1000/24));
+							Bitmap myBitmap = getBitmapFromAsset(String.format(
+									"animations/anim_dead%d/%04d.png", n, i));
+							anim1.addFrame(new BitmapDrawable(myBitmap),
+									(1000 / 24));
 
 						}
-					
+
 					} catch (IOException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -369,8 +414,6 @@ public class MainActivity extends Activity {
 					imageView.setImageDrawable(anim1);
 					anim1.start();
 
-					
-					
 					Toast toast = new Toast(getApplicationContext());
 					toast.setGravity(Gravity.CENTER_VERTICAL, 0, 0);
 					toast.setDuration(Toast.LENGTH_SHORT);
@@ -432,8 +475,7 @@ public class MainActivity extends Activity {
 		anim1.start();
 	}
 
-	private void decSec() {
-		date.setSeconds(date.getSeconds() - 1);
+	public void updateTimer() {
 		StringBuffer s = new StringBuffer();
 		if (date.getSeconds() < 10)
 			s.append("0");
@@ -453,66 +495,36 @@ public class MainActivity extends Activity {
 		tv.setText(h.toString() + ":" + m.toString());
 	}
 
+	private void decSec() {
+		date.setSeconds(date.getSeconds() - 1);
+		updateTimer();
+
+	}
+
 	public void increment(View view) {
 		ProgressWheel pw = (ProgressWheel) findViewById(R.id.progressBarTwo);
 		pw.incrementProgress();
 	}
 
 	public void incMin(View view) {
-		TextView tv = (TextView) findViewById(R.id.hmin);
 		date.setMinutes(date.getMinutes() + 1);
-		StringBuffer h = new StringBuffer();
-		StringBuffer m = new StringBuffer();
-		if (date.getHours() < 10)
-			h.append("0");
-		h.append(date.getHours());
-		if (date.getMinutes() < 10)
-			m.append("0");
-		m.append(date.getMinutes());
-		tv.setText(h.toString() + ":" + m.toString());
+		updateTimer();
 	}
 
 	public void incH(View view) {
-		TextView tv = (TextView) findViewById(R.id.hmin);
 		date.setHours(date.getHours() + 1);
-		StringBuffer h = new StringBuffer();
-		StringBuffer m = new StringBuffer();
-		if (date.getHours() < 10)
-			h.append("0");
-		h.append(date.getHours());
-		if (date.getMinutes() < 10)
-			m.append("0");
-		m.append(date.getMinutes());
-		tv.setText(h.toString() + ":" + m.toString());
+		updateTimer();
 	}
 
 	public void decH(View view) {
-		TextView tv = (TextView) findViewById(R.id.hmin);
 		date.setHours(date.getHours() - 1);
-		StringBuffer h = new StringBuffer();
-		StringBuffer m = new StringBuffer();
-		if (date.getHours() < 10)
-			h.append("0");
-		h.append(date.getHours());
-		if (date.getMinutes() < 10)
-			m.append("0");
-		m.append(date.getMinutes());
-		tv.setText(h.toString() + ":" + m.toString());
+		updateTimer();
 
 	}
 
 	public void decMin(View view) {
-		TextView tv = (TextView) findViewById(R.id.hmin);
-		date.setMinutes(date.getMinutes() - 5);
-		StringBuffer h = new StringBuffer();
-		StringBuffer m = new StringBuffer();
-		if (date.getHours() < 10)
-			h.append("0");
-		h.append(date.getHours());
-		if (date.getMinutes() < 10)
-			m.append("0");
-		m.append(date.getMinutes());
-		tv.setText(h.toString() + ":" + m.toString());
+		date.setMinutes(date.getMinutes() - 1);
+		updateTimer();
 	}
 
 }
