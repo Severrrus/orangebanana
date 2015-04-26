@@ -47,7 +47,8 @@ public class MainActivity extends Activity {
 	long startMilisec;
 	ProgressWheel pw;
 	public Handler timerHandler;
-
+	private boolean delayEndingAnim = false;
+	
 	private Bitmap getBitmapFromAsset(String strName) throws IOException {
 		AssetManager assetManager = getAssets();
 
@@ -62,8 +63,9 @@ public class MainActivity extends Activity {
 
 		@Override
 		public void run() {
-			long seconds = (total_sec*1000 - (System.currentTimeMillis() - startMilisec));
-			while ((date.getSeconds() + date.getMinutes() * 60 + date.getHours() * 3600) * 1000 > Math.max(0, seconds))
+			long seconds = (total_sec * 1000 - (System.currentTimeMillis() - startMilisec));
+			while ((date.getSeconds() + date.getMinutes() * 60 + date
+					.getHours() * 3600) * 1000 > Math.max(0, seconds))
 				decSec();
 			updateTimer();
 
@@ -108,28 +110,9 @@ public class MainActivity extends Activity {
 				timerHandler.postDelayed(this, 1000);
 			else {
 				// Co zrobi� jak si� sko�czy czas?
-				Log.e("Czas", "KONIEC");
-				AnimationDrawable anim1 = new AnimationDrawable();
+				Log.i("Czas", "KONIEC ANIMACJI");
 
-				try {
-					for (int i = 0; i <= 55; i++) {
-
-						Bitmap myBitmap = getBitmapFromAsset(String.format(
-								"animations/anim9/%04d.png", i));
-						anim1.addFrame(new BitmapDrawable(myBitmap),
-								(1000 / 24));
-
-					}
-					Bitmap myBitmap = getBitmapFromAsset("animations/anim7/0001.png");
-					anim1.addFrame(new BitmapDrawable(myBitmap), (1000 / 24));
-
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
-				kurczakView.setImageDrawable(anim1);
-				anim1.start();
+				startEndingAnim();
 
 				chicken.status = ChickenStatus.START;
 				setTrianglesVisibility(View.VISIBLE);
@@ -145,7 +128,7 @@ public class MainActivity extends Activity {
 						.putInt("longest",
 								Math.max(sharedPref.getInt("longest", 0),
 										total_sec)).apply();
-				Log.e("time", Integer.toString(total_sec));
+				Log.i("total time", Integer.toString(total_sec));
 				sharedPref
 						.edit()
 						.putInt("savedTime",
@@ -169,6 +152,7 @@ public class MainActivity extends Activity {
 				pw.setProgress(0);
 		}
 	};
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -193,8 +177,35 @@ public class MainActivity extends Activity {
 		ActionBar actionBar = getActionBar();
 		actionBar.setBackgroundDrawable(new ColorDrawable(Color
 				.parseColor("#1d2b54"))); // set your desired color
-		
+
 		longClicks();
+	}
+
+	public void startEndingAnim() {
+		if (ScreenReceiver.toBeOff == true){
+			delayEndingAnim = true;
+			return;
+		}
+		AnimationDrawable anim1 = new AnimationDrawable();
+
+		try {
+			for (int i = 0; i <= 55; i++) {
+
+				Bitmap myBitmap = getBitmapFromAsset(String.format(
+						"animations/anim9/%04d.png", i));
+				anim1.addFrame(new BitmapDrawable(myBitmap), (1000 / 24));
+
+			}
+			Bitmap myBitmap = getBitmapFromAsset("animations/anim7/0001.png");
+			anim1.addFrame(new BitmapDrawable(myBitmap), (1000 / 24));
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		ImageView kurczakView = (ImageView) findViewById(R.id.imageView1);
+		kurczakView.setImageDrawable(anim1);
+		anim1.start();
 	}
 
 	private void longClicks() {
@@ -214,7 +225,7 @@ public class MainActivity extends Activity {
 				}, 80);
 				return true;
 			}
-		});	
+		});
 		final ImageView decMin = (ImageView) (findViewById(R.id.decMin));
 		decMin.setOnLongClickListener(new OnLongClickListener() {
 			@Override
@@ -237,6 +248,11 @@ public class MainActivity extends Activity {
 	@Override
 	public void onResume() {
 		super.onResume();
+		ScreenReceiver.toBeOff = false;
+		if (delayEndingAnim){
+			startEndingAnim();
+			delayEndingAnim = false;
+		}
 	}
 
 	@Override
@@ -264,7 +280,7 @@ public class MainActivity extends Activity {
 		super.onPause();
 		if (chicken.status == ChickenStatus.DOSTHG)
 			kill();
-		ScreenReceiver.toBeOff = false;
+		
 	}
 
 	public void farm(View view) {

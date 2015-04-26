@@ -15,7 +15,7 @@ public class ScreenReceiver extends BroadcastReceiver
   {
     if (intent.getAction().equals(Intent.ACTION_SCREEN_OFF))
     {
-      Log.e("jest", "jest");
+      Log.i("jest", "jest");
       toBeOff = true;
     }
   }
